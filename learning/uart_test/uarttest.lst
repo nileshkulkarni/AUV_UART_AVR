@@ -1,0 +1,161 @@
+   1               		.file	"uarttest.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	main
+  20               	main:
+  21               	.LFB8:
+  22               	.LM1:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	.LM2:
+  26 0000 8FEF      		ldi r24,lo8(-1)
+  27 0002 81B9      		out 33-32,r24
+  28 0004 87B9      		out 39-32,r24
+  29 0006 8DB9      		out 45-32,r24
+  30 0008 88B9      		out 40-32,r24
+  31               	.LM3:
+  32 000a 8EB9      		out 46-32,r24
+  33               	.LM4:
+  34 000c 8FE5      		ldi r24,lo8(95)
+  35 000e 90E0      		ldi r25,hi8(95)
+  36 0010 9093 D500 		sts (212)+1,r25
+  37 0014 8093 D400 		sts 212,r24
+  38               	.LM5:
+  39 0018 86E0      		ldi r24,lo8(6)
+  40 001a 8093 D200 		sts 210,r24
+  41               	.LM6:
+  42 001e 8091 D000 		lds r24,208
+  43 0022 87FF      		sbrs r24,7
+  44 0024 00C0      		rjmp .L2
+  45               	.LM7:
+  46 0026 8091 D000 		lds r24,208
+  47 002a 8078      		andi r24,lo8(-128)
+  48 002c 8093 D000 		sts 208,r24
+  49               	.L2:
+  50               	.LM8:
+  51 0030 88E1      		ldi r24,lo8(24)
+  52 0032 8093 D100 		sts 209,r24
+  53 0036 80E2      		ldi r24,lo8(20000)
+  54 0038 9EE4      		ldi r25,hi8(20000)
+  55               	.LVL0:
+  56               	.LBB18:
+  57               	.LBB19:
+  58               	.LBB20:
+  59               	.LBB21:
+  60               	.LM9:
+  61 003a 20E7      		ldi r18,lo8(368)
+  62 003c 31E0      		ldi r19,hi8(368)
+  63               	.L3:
+  64 003e F901      		movw r30,r18
+  65               	.LVL1:
+  66               	/* #APP */
+  67               	 ;  105 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/delay_basic.h" 1
+  68 0040 3197      		1: sbiw r30,1
+  69 0042 01F4      		brne 1b
+  70               	 ;  0 "" 2
+  71               	/* #NOAPP */
+  72               	.LBE21:
+  73               	.LBE20:
+  74               	.LM10:
+  75 0044 0197      		sbiw r24,1
+  76               	.LM11:
+  77 0046 01F4      		brne .L3
+  78               	.LBE19:
+  79               	.LBE18:
+  80               	.LM12:
+  81 0048 85E5      		ldi r24,lo8(85)
+  82               	.LVL2:
+  83 004a 8093 D600 		sts 214,r24
+  84 004e 20E0      		ldi r18,lo8(0)
+  85               	.LVL3:
+  86               	.LM13:
+  87 0050 70EF      		ldi r23,lo8(-16)
+  88               	.LBB22:
+  89               	.LBB23:
+  90               	.LBB24:
+  91               	.LBB25:
+  92               	.LM14:
+  93 0052 40E7      		ldi r20,lo8(368)
+  94 0054 51E0      		ldi r21,hi8(368)
+  95               	.LBE25:
+  96               	.LBE24:
+  97               	.LBE23:
+  98               	.LBE22:
+  99               	.LM15:
+ 100 0056 65E5      		ldi r22,lo8(85)
+ 101               	.LM16:
+ 102 0058 3FE0      		ldi r19,lo8(15)
+ 103               	.LVL4:
+ 104               	.L16:
+ 105               	.LM17:
+ 106 005a 8091 D000 		lds r24,208
+ 107 005e 87FF      		sbrs r24,7
+ 108 0060 00C0      		rjmp .L16
+ 109               	.LM18:
+ 110 0062 2B36      		cpi r18,lo8(107)
+ 111 0064 01F4      		brne .L5
+ 112               	.L17:
+ 113 0066 00C0      		rjmp .L17
+ 114               	.L5:
+ 115               	.LM19:
+ 116 0068 2091 D600 		lds r18,214
+ 117               	.LM20:
+ 118 006c 72B9      		out 34-32,r23
+ 119 006e 88EB      		ldi r24,lo8(3000)
+ 120 0070 9BE0      		ldi r25,hi8(3000)
+ 121               	.LVL5:
+ 122               	.L7:
+ 123               	.LBB29:
+ 124               	.LBB28:
+ 125               	.LBB27:
+ 126               	.LBB26:
+ 127               	.LM21:
+ 128 0072 FA01      		movw r30,r20
+ 129               	.LVL6:
+ 130               	/* #APP */
+ 131               	 ;  105 "/usr/lib/gcc/avr/4.3.4/../../../avr/include/util/delay_basic.h" 1
+ 132 0074 3197      		1: sbiw r30,1
+ 133 0076 01F4      		brne 1b
+ 134               	 ;  0 "" 2
+ 135               	/* #NOAPP */
+ 136               	.LBE26:
+ 137               	.LBE27:
+ 138               	.LM22:
+ 139 0078 0197      		sbiw r24,1
+ 140               	.LM23:
+ 141 007a 01F4      		brne .L7
+ 142               	.L11:
+ 143               	.LBE28:
+ 144               	.LBE29:
+ 145               	.LM24:
+ 146 007c 8091 D000 		lds r24,208
+ 147               	.LVL7:
+ 148 0080 85FF      		sbrs r24,5
+ 149 0082 00C0      		rjmp .L11
+ 150               	.LM25:
+ 151 0084 6093 D600 		sts 214,r22
+ 152               	.LM26:
+ 153 0088 32B9      		out 34-32,r19
+ 154 008a 00C0      		rjmp .L16
+ 155               	.LFE8:
+ 181               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 uarttest.c
+     /tmp/cczTTOf3.s:2      *ABS*:0000003f __SREG__
+     /tmp/cczTTOf3.s:3      *ABS*:0000003e __SP_H__
+     /tmp/cczTTOf3.s:4      *ABS*:0000003d __SP_L__
+     /tmp/cczTTOf3.s:5      *ABS*:00000034 __CCP__
+     /tmp/cczTTOf3.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/cczTTOf3.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/cczTTOf3.s:20     .text:00000000 main
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

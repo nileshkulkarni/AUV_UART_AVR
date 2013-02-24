@@ -1,0 +1,177 @@
+   1               		.file	"uC1.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+  25               	.LM2:
+  26 0000 84B1      		in r24,36-32
+  27 0002 8560      		ori r24,lo8(5)
+  28 0004 84B9      		out 36-32,r24
+  29               	.LM3:
+  30 0006 0E94 0000 		call spi_init
+  31               	.L2:
+  32               	.LBB15:
+  33               	.LM4:
+  34 000a 2998      		cbi 37-32,1
+  35               	.LM5:
+  36 000c 289A      		sbi 37-32,0
+  37               	.LVL0:
+  38               	.LBB16:
+  39               	.LBB17:
+  40               	.LM6:
+  41 000e 8FEF      		 ldi r24,lo8(15999999)
+  42 0010 93E2      	    ldi r25,hi8(15999999)
+  43 0012 A4EF      	    ldi r26,hlo8(15999999)
+  44 0014 8150      	    1:subi r24,1
+  45 0016 9040      	    sbci r25,0
+  46 0018 A040      	    sbci r26,0
+  47 001a 01F4      	    brne 1b
+  48 001c 00C0      		rjmp .
+  49 001e 0000      		nop
+  50               	.LBE17:
+  51               	.LBE16:
+  52               	.LM7:
+  53 0020 83E0      		ldi r24,lo8(3)
+  54 0022 0E94 0000 		call spi_write
+  55               	.LM8:
+  56 0026 81E6      		ldi r24,lo8(97)
+  57 0028 90E0      		ldi r25,hi8(97)
+  58 002a 0E94 0000 		call uart_tx
+  59               	.LM9:
+  60 002e 2898      		cbi 37-32,0
+  61               	.LM10:
+  62 0030 299A      		sbi 37-32,1
+  63               	.LVL1:
+  64               	.LBB18:
+  65               	.LBB19:
+  66               	.LM11:
+  67 0032 8FEF      		 ldi r24,lo8(15999999)
+  68 0034 93E2      	    ldi r25,hi8(15999999)
+  69 0036 A4EF      	    ldi r26,hlo8(15999999)
+  70 0038 8150      	    1:subi r24,1
+  71 003a 9040      	    sbci r25,0
+  72 003c A040      	    sbci r26,0
+  73 003e 01F4      	    brne 1b
+  74 0040 00C0      		rjmp .
+  75 0042 0000      		nop
+  76               	.LBE19:
+  77               	.LBE18:
+  78               	.LM12:
+  79 0044 2998      		cbi 37-32,1
+  80               	.LM13:
+  81 0046 289A      		sbi 37-32,0
+  82               	.LVL2:
+  83               	.LBB20:
+  84               	.LBB21:
+  85               	.LM14:
+  86 0048 8FEF      		 ldi r24,lo8(15999999)
+  87 004a 93E2      	    ldi r25,hi8(15999999)
+  88 004c A4EF      	    ldi r26,hlo8(15999999)
+  89 004e 8150      	    1:subi r24,1
+  90 0050 9040      	    sbci r25,0
+  91 0052 A040      	    sbci r26,0
+  92 0054 01F4      	    brne 1b
+  93 0056 00C0      		rjmp .
+  94 0058 0000      		nop
+  95               	.LBE21:
+  96               	.LBE20:
+  97               	.LM15:
+  98 005a 8FE0      		ldi r24,lo8(15)
+  99 005c 0E94 0000 		call spi_write
+ 100               	.LM16:
+ 101 0060 2898      		cbi 37-32,0
+ 102               	.LM17:
+ 103 0062 299A      		sbi 37-32,1
+ 104               	.LVL3:
+ 105               	.LBB22:
+ 106               	.LBB23:
+ 107               	.LM18:
+ 108 0064 8FEF      		 ldi r24,lo8(15999999)
+ 109 0066 93E2      	    ldi r25,hi8(15999999)
+ 110 0068 A4EF      	    ldi r26,hlo8(15999999)
+ 111 006a 8150      	    1:subi r24,1
+ 112 006c 9040      	    sbci r25,0
+ 113 006e A040      	    sbci r26,0
+ 114 0070 01F4      	    brne 1b
+ 115 0072 00C0      		rjmp .
+ 116 0074 0000      		nop
+ 117               	.LBE23:
+ 118               	.LBE22:
+ 119               	.LM19:
+ 120 0076 82E6      		ldi r24,lo8(98)
+ 121 0078 90E0      		ldi r25,hi8(98)
+ 122 007a 0E94 0000 		call uart_tx
+ 123               	.LM20:
+ 124 007e 2998      		cbi 37-32,1
+ 125               	.LM21:
+ 126 0080 289A      		sbi 37-32,0
+ 127               	.LVL4:
+ 128               	.LBB24:
+ 129               	.LBB25:
+ 130               	.LM22:
+ 131 0082 8FEF      		 ldi r24,lo8(15999999)
+ 132 0084 93E2      	    ldi r25,hi8(15999999)
+ 133 0086 A4EF      	    ldi r26,hlo8(15999999)
+ 134 0088 8150      	    1:subi r24,1
+ 135 008a 9040      	    sbci r25,0
+ 136 008c A040      	    sbci r26,0
+ 137 008e 01F4      	    brne 1b
+ 138 0090 00C0      		rjmp .
+ 139 0092 0000      		nop
+ 140               	.LBE25:
+ 141               	.LBE24:
+ 142               	.LM23:
+ 143 0094 0E94 0000 		call spi_read
+ 144               	.LM24:
+ 145 0098 2898      		cbi 37-32,0
+ 146               	.LM25:
+ 147 009a 299A      		sbi 37-32,1
+ 148               	.LVL5:
+ 149               	.LBB26:
+ 150               	.LBB27:
+ 151               	.LM26:
+ 152 009c 8FEF      		 ldi r24,lo8(15999999)
+ 153 009e 93E2      	    ldi r25,hi8(15999999)
+ 154 00a0 A4EF      	    ldi r26,hlo8(15999999)
+ 155 00a2 8150      	    1:subi r24,1
+ 156 00a4 9040      	    sbci r25,0
+ 157 00a6 A040      	    sbci r26,0
+ 158 00a8 01F4      	    brne 1b
+ 159 00aa 00C0      		rjmp .
+ 160 00ac 0000      		nop
+ 161               	.LBE27:
+ 162               	.LBE26:
+ 163               	.LM27:
+ 164 00ae 83E6      		ldi r24,lo8(99)
+ 165 00b0 90E0      		ldi r25,hi8(99)
+ 166 00b2 0E94 0000 		call uart_tx
+ 167 00b6 00C0      		rjmp .L2
+ 168               	.LBE15:
+ 169               	.LFE6:
+ 195               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 uC1.c
+     /tmp/ccXoICqA.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/ccXoICqA.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/ccXoICqA.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/ccXoICqA.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccXoICqA.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccXoICqA.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccXoICqA.s:18     .text:0000000000000000 main
+
+UNDEFINED SYMBOLS
+spi_init
+spi_write
+uart_tx
+spi_read
