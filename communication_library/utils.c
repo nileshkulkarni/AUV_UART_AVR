@@ -22,13 +22,22 @@ uint16_t calculate_checksum(char *data)
    return ( checksum );
 }
 
-uint8_t set_transfer_data( uint32_t *dest_data , const uint8_t src_data , const uint16_t checksum )
-{
-    uint8_t return_value = 0;
-    *dest_data = checksum << NUM_BITS | src_data ;
-    return ( return_value );
+
+int getInt(char * data){
+		int length = sizeof(data) / sizeof(data[0]);
+		int i=0;
+		int no=0;
+		for(i=0;i<length;i++){
+			no = no* 10 + ((int)data[0] - 48);
+		}
+
+		return no;
 }
 
+
+
+
+/*
 int main()
 {
         uint8_t         return_value = 0;
@@ -40,18 +49,9 @@ int main()
 
         printf( "\nChecksum calculated = %x",checksum );
 
-//        return_value = set_transfer_data( &transfer_data,source_data,checksum );
-/*
-        if( 0 == return_value )
-        {
-            printf( "\nChecksum added successfully; transfer_data = %x",
-                    transfer_data );
-        }
-        else
-        {
-            printf( "\nError adding checksum" );
-        }
-		*/
+	
+       		
         return ( 0 );
-
+	
 }
+*/
