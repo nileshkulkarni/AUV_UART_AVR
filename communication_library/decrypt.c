@@ -87,6 +87,20 @@ bool validateData(char * data){
 
 
 }
+void interpretData(char* data){
+
+	/*
+	 * this function breaks the given string into tokens
+	 */
+	int i=0;
+	int length = sizeof(data)/sizeof(data[0]);
+	for(i=1;i<length
+
+
+
+}
+
+
 
 
 void DataHandler(char * data){
@@ -102,7 +116,6 @@ void DataHandler(char * data){
 		//call data validator.
 		if(validateData(data)){	
 			interpretData(data);	
-
 		}
 		else{
 #ifdef DEBUG		

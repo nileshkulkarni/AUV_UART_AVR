@@ -26,12 +26,12 @@ uint16_t calculate_checksum(char *data)
 int getInt(char * data){
 		int length = sizeof(data) / sizeof(data[0]);
 		int i=0;
-		int no=0;
+		int number=0;
 		for(i=0;i<length;i++){
-			no = no* 10 + ((int)data[0] - 48);
+			number = number* 10 + ((int)data[0] - 48);
 		}
 
-		return no;
+		return number;
 }
 
 
