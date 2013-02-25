@@ -1,1 +1,0 @@
-uarttest.o: uarttest.c
