@@ -1,11 +1,9 @@
 #include <stdio.h>
-typedef unsigned char   uint8_t;
-typedef unsigned short  uint16_t;
-typedef unsigned int    uint32_t;
+#include <stdint.h>
 #define NUM_BITS        (8)
 
 
-uint16_t calculate_checksum(char *data)
+uint16_t calculateChecksum(char *data)
 {
 
 	int length = sizeof (data) /sizeof(data[0]);
