@@ -108,6 +108,7 @@ void DataHandler(char * data){
 #ifdef DEBUG		
 				printf("Data Validation failed");
 #endif
+		}
 
 
 
