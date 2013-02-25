@@ -32,10 +32,62 @@ void processData(int c){
  * Normal Mode (NM)
  */
 
-void DataHandle(char * data){
+bool validateData(char * data){
+	/* this funtion establishes the authenticity of the data.
+	 */
+	
+	int length = sizeof (data) /sizeof(data[0]) ;
+	uint16_t checksum=0;
+	int i;
+	int CheckSumPostion=0;
+	
+	if(length >=1){
+
+		if(data[0] != '$'){
+			return false;
+		}
+
+		if(data[length-1] != '$'){
+			return false;
+		}
+	}
+	else{ 
+			return false;
+	}
+	for (i=length-1;i>=0;i++){
+		if(data[i] == ','){
+			CheckSumPostion = i+1;
+		 	break;
+		}
+		else
+			continue;	
+	}
+	
+
+	/* no convert that part of string to no.. keep in mind the last character should be a dollar ($) */
+
+		
+}
+
+
+
+
+
+
+
+
+void DataHandler(char * data){
 		/* data is the date received from uart.
 		 * which has mode etc information encoded onto it.
 		 */
+	/* first I have to verify whether the data is correct then we have to interpre the data.
+	 * step by step token by token.
+	 */
+	
+	
+
+		//call data validator.
+		validateData(data);
 
 
 
@@ -46,9 +98,7 @@ void DataHandle(char * data){
 
 
 
-
-
-
+}
 
 
 
