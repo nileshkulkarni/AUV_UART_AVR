@@ -94,7 +94,27 @@ void interpretData(char* data){
 	 */
 	int i=0;
 	int length = sizeof(data)/sizeof(data[0]);
-	for(i=1;i<length
+	char mode;	
+	
+	mode = data[1];
+	/* obviously it should exist because validate chala hai 
+	 */
+
+
+	switch(mode){
+
+
+
+	
+	
+	for(i=1;i<length-1;i++){
+		
+	
+	
+	
+	}
+
+
 
 
 
