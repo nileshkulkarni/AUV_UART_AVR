@@ -1,2 +1,10 @@
 *.o
+*.eep
+*.lst
+*.lss
+*.map
+*.elf
+*.sym
+*.swp
+a.out
 
