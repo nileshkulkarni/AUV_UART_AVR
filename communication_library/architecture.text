@@ -1,0 +1,14 @@
+
+1) Sending Data in bytes:- puts, putc, gets, getc
+2) Error-Correction , handling
+3) Application Level -> "char level"
+4) Higher Level Implementation
+
+Error-Correction Api :- uint8 ** ApplyErrorChe(uint_8 ** input)
+						Error  	 RecieveErrorche
+
+
+
+puts(char * buffer, int bufferlen)
+
+int gets(char *buffer);

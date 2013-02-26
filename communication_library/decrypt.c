@@ -9,6 +9,9 @@
 
 #define UART_BAUD_RATE 9600
 
+
+
+
 void processData(int c){
 		PORTC = c;
 
