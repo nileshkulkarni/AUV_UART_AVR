@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 
-bool uartReceiveValue;
+bool uartReceive;
 char uartReceivedData;
 bool uartTransmitValue;
 char uartTransmittedData;
@@ -30,7 +30,7 @@ void uart_init( uint16_t ubrr){
 		/* Set frame format: 8data, 1 stop bit */
 		UCSR2C = (1<<UCSZ20)|(1<<UCSZ21);
 		uartTransmitValue = true;
-		uartReceiveValue = false;
+		uartReceive = false;
 		uartReceiveBufferLength=0;
 		uartReceiveBufferFull=false;
 		uartTransmitBufferFull=false;
@@ -47,16 +47,17 @@ void put_c(unsigned char data){
 
 
 
+/*
 unsigned char get_c(){
-	/* Wait for data to be received */
-	/* Get and return received data from buffer */
 	if(uartReceiveValue){	
 			return uartReceivedData;
-			uartReceiveValue = false;
+			uartReceive = false;
 	}	
-	else
+	else{
 			return NO_DATA;		
+	}
 }
+*/
 
 void put_s(char * buffer, int bufferlen){
 	
@@ -67,7 +68,7 @@ void put_s(char * buffer, int bufferlen){
 
 ISR(USART2_RX_vect){
 	while ( !(UCSR2A & (1<<RXC2)));
-	uartReceiveValue=true;
+	uartReceive=true;
 	uartReceivedData = UDR2;
 	
 	if(uartReceiveBufferLength < RECEIVE_BUFFER_SIZE){
