@@ -1,17 +1,26 @@
 #include "uart.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdint.h>
+#define RECEIVE_BUFFER_SIZE 10
+#define TRANSMIT_BUFFER_SIZE 10
 
 #define NO_DATA 0x00
-
-typedef int bool;
-#define true 1
-#define false 0
 
 bool receiveValue;
 char receivedData;
 bool transmitValue;
 char transmittedData;
+bool receiveBufferFull;
+int receiveBufferLength;
+bool transmitBufferFull;
+
+
+char receiveBuffer[RECEIVE_BUFFER_SIZE];
+char transmitBuffer[TRANSMIT_BUFFER_SIZE];
+
+
+
 
 void uart_init( uint16_t ubrr){
 		/* Set baud rate */
@@ -26,36 +35,36 @@ void uart_init( uint16_t ubrr){
 		UCSR2C = (1<<UCSZ20)|(1<<UCSZ21);
 		transmitValue = true;
 		receiveValue = false;
+		receiveBufferLength=0;
+		receiveBufferFull=false;
+		transmitBufferFull=false;
 
 } // USART_SR0A
 
 void put_c(unsigned char data){
 	
-	if(transmitValue){
 		while ( !( UCSR2A & (1<<UDRE2)) ); /* wait for empty transmit buffer*/
 		/* Put data into buffer, sends the data */
 		UDR2 = data ;
 		transmitValue=false;
-	}
 }
+
+
 
 unsigned char get_c(){
 	/* Wait for data to be received */
-	//while ( !(UCSR2A & (1<<RXC2)) );
 	/* Get and return received data from buffer */
-	//return UDR2;
 	if(receiveValue){	
 			return receivedData;
 			receiveValue = false;
 	}	
 	else
-			return NO_DATA;
-
-			
+			return NO_DATA;		
 }
 
 void put_s(char * buffer, int bufferlen){
-		while(*buffer){
+	
+	for(int i=0;i<bufferlen;i++){
 				put_c(*buffer++);
 		}
 }
@@ -63,11 +72,20 @@ void put_s(char * buffer, int bufferlen){
 ISR(USART2_RX_vect){
 	while ( !(UCSR2A & (1<<RXC2)));
 	receiveValue=true;
-//	PORTC=0xAA;
 	receivedData = UDR2;
+	
+	if(receiveBufferLength < RECEIVE_BUFFER_SIZE){
+			receiveBuffer[receiveBufferLength]=receivedData;
+			receiveBufferLength++;
+			if(receiveBufferLength ==RECEIVE_BUFFER_SIZE){
+					receiveBufferFull =true;
+					
+			}
+	}
+	
 }
-
+/*
 ISR(USART2_TX_vect){
-//	PORTC=0xAA;
 	transmitValue=true;
 }	
+*/
