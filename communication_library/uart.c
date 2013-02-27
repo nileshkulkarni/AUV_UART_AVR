@@ -21,37 +21,37 @@ void uart_init( uint16_t ubrr){
 		/* Enable receiver and transmitter */
 		UCSR2A |= (1<<U2X2);
 	//	UCSR0B =(1<<TXCIE0)|(1<<RXEN0)|(1<<TXEN0);
-		UCSR2B |= (1<<RXEN2)|(1<<TXEN2);
+		UCSR2B |= (1<<RXCIE2)|(1<<TXCIE2)|(1<<RXEN2)|(1<<TXEN2);
 		/* Set frame format: 8data, 1 stop bit */
 		UCSR2C = (1<<UCSZ20)|(1<<UCSZ21);
-		transmitValue = false;
+		transmitValue = true;
 		receiveValue = false;
 
 } // USART_SR0A
 
 void put_c(unsigned char data){
 	
-	//if(transmitValue){
+	if(transmitValue){
 		while ( !( UCSR2A & (1<<UDRE2)) ); /* wait for empty transmit buffer*/
 		/* Put data into buffer, sends the data */
 		UDR2 = data ;
-	//	transmitValue=false;
-	//}
+		transmitValue=false;
+	}
 }
 
 unsigned char get_c(){
 	/* Wait for data to be received */
-	while ( !(UCSR2A & (1<<RXC2)) );
+	//while ( !(UCSR2A & (1<<RXC2)) );
 	/* Get and return received data from buffer */
-	return UDR2;
-	/*if(receiveValue){	
+	//return UDR2;
+	if(receiveValue){	
 			return receivedData;
 			receiveValue = false;
 	}	
 	else
 			return NO_DATA;
 
-	*/		
+			
 }
 
 void put_s(char * buffer, int bufferlen){
@@ -59,16 +59,15 @@ void put_s(char * buffer, int bufferlen){
 				put_c(*buffer++);
 		}
 }
-/*
-ISR(USART0_RXC_vect){
-	while ( !(UCSR0A & (1<<RXC0)));
+
+ISR(USART2_RX_vect){
+	while ( !(UCSR2A & (1<<RXC2)));
 	receiveValue=true;
-	receivedData = UDR0;
+//	PORTC=0xAA;
+	receivedData = UDR2;
 }
-*/
-ISR(USART2_TXC_vect){
+
+ISR(USART2_TX_vect){
+//	PORTC=0xAA;
 	transmitValue=true;
-}
-
-
-		
+}	
