@@ -80,7 +80,7 @@ OBJDIR = .
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c uart.c
+SRC = $(TARGET).c uart.c crc.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

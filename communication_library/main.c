@@ -17,7 +17,14 @@ int main(){
 	unsigned char c=0xAA;
 	while(1){
 		if(uartReceiveBufferFull == true){
-				put_s(uartReceiveBuffer,RECEIVE_BUFFER_SIZE);
+				//put_s(uartReceiveBuffer,RECEIVE_BUFFER_SIZE);
+				uint8_t b = crc8Decrypt(uartReceiveBuffer);
+				if (b==TRUE) {
+						put_s("true",4);
+				}
+				else {
+						put_s("false",5);
+				}
 				uartReceiveBufferFull=false;
 				uartReceiveBufferLength=0;
 				break;
