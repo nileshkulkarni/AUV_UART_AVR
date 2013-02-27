@@ -2,47 +2,56 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-
-
 #define NO_DATA 0x00
 
-extern bool receiveValue;
-extern char receivedData;
-extern bool transmitValue;
+typedef int bool;
+#define true 1
+#define false 0
+
+bool receiveValue;
+char receivedData;
+bool transmitValue;
 char transmittedData;
 
 void uart_init( uint16_t ubrr){
 		/* Set baud rate */
-		UBRR0H = (unsigned char)(ubrr>>8);
-		UBRR0L = (unsigned char)ubrr;
+		UBRR2H = (unsigned char)(ubrr>>8);
+		UBRR2L = (unsigned char)ubrr;
+		//UBRR2 = 95;
 		/* Enable receiver and transmitter */
-		UCSR0B = (1<<RXEN0)|(1<<TXEN0);
+		UCSR2A |= (1<<U2X2);
+	//	UCSR0B =(1<<TXCIE0)|(1<<RXEN0)|(1<<TXEN0);
+		UCSR2B |= (1<<RXEN2)|(1<<TXEN2);
 		/* Set frame format: 8data, 1 stop bit */
-		UCSR0C = (1<<UCSZ00)|(1<<UCSZ01);
+		UCSR2C = (1<<UCSZ20)|(1<<UCSZ21);
 		transmitValue = false;
 		receiveValue = false;
 
 } // USART_SR0A
 
-void put_c(char data){
+void put_c(unsigned char data){
 	
-	if(transmitValue){
-		while ( !( UCSR0A & (1<<UDRE0)) ); /* wait for empty transmit buffer*/
+	//if(transmitValue){
+		while ( !( UCSR2A & (1<<UDRE2)) ); /* wait for empty transmit buffer*/
 		/* Put data into buffer, sends the data */
-		UDR0 = data ;
-		transmitValue=false;
-	}
+		UDR2 = data ;
+	//	transmitValue=false;
+	//}
 }
 
-char get_c(){
+unsigned char get_c(){
 	/* Wait for data to be received */
-	/*while ( !(UCSR0A & (1<<RXC0)) );*/
+	while ( !(UCSR2A & (1<<RXC2)) );
 	/* Get and return received data from buffer */
-	/*return UDR0;*/
-	if(receiveValue)
+	return UDR2;
+	/*if(receiveValue){	
 			return receivedData;
+			receiveValue = false;
+	}	
 	else
 			return NO_DATA;
+
+	*/		
 }
 
 void put_s(char * buffer, int bufferlen){
@@ -50,13 +59,14 @@ void put_s(char * buffer, int bufferlen){
 				put_c(*buffer++);
 		}
 }
-ISR(USART0RX_vect){
+/*
+ISR(USART0_RXC_vect){
 	while ( !(UCSR0A & (1<<RXC0)));
 	receiveValue=true;
 	receivedData = UDR0;
 }
-
-ISR(USART0TX_vect){
+*/
+ISR(USART2_TXC_vect){
 	transmitValue=true;
 }
 
