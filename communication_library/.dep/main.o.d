@@ -1,3 +1,5 @@
-main.o: main.c uart.h
+main.o: main.c crc.h uart.h
+
+crc.h:
 
 uart.h:
