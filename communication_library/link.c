@@ -14,10 +14,12 @@ void linkHandle() {
 		if (b == TRUE) {
 			uartTransmitBuffer[0] = 't';
 			crc8Encrypt(uartTransmitBuffer);
+			motionControl();
 			put_s(uartTransmitBuffer,UART_BUFFER_SIZE);
 		}
 		else {
 			uartTransmitBuffer[0] = 'f';
+			motionControl();
 			crc8Encrypt(uartTransmitBuffer);
 			put_s(uartTransmitBuffer,UART_BUFFER_SIZE);
 		}
