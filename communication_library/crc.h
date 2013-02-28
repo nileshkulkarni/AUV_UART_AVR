@@ -5,15 +5,17 @@ message_length = x
 crc_bits_length = y
 global array of data is assumed as x+y
 */
+#ifndef CRC_H
+#define CRC_H
+
 #include <stdint.h>
+#include "utils.h"
+#include "system_config.h"
 
 #define CRC_POLYNOMIAL 0xAB
-//#define CRC_POLYNOMIAL 0x12345678
-#define CRC_MESSAGE_BIT_LENGTH 16
+#define CRC_MESSAGE_BIT_LENGTH (UART_BUFFER_SIZE-1)*8
 #define CRC_POLYNOMIAL_BIT_LENGTH 8
-#define CRC_PACKET_LENGTH ((CRC_MESSAGE_BIT_LENGTH + CRC_POLYNOMIAL_BIT_LENGTH)/8)
-#define TRUE 0
-#define FALSE 1
+#define CRC_PACKET_LENGTH UART_BUFFER_SIZE
 
 /*
 crcEncrypt would modify the global array 'data' and append checkbits to it.
@@ -25,3 +27,4 @@ it returns the payload length
 */
 uint8_t crc8Decrypt(uint8_t* table);
 
+#endif

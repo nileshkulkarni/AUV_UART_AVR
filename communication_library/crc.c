@@ -1,4 +1,5 @@
 #include "crc.h"
+#include "utils.h"
 
 void crc8(uint8_t* crc_table) {
 

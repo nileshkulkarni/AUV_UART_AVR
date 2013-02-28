@@ -6,8 +6,8 @@ uint8_t table[CRC_PACKET_LENGTH];
 
 int main() {
 
-table[0] = 0x61;
-table[1] = 0x7D;
+table[0] = 'a';
+table[1] = 13;
 table[2] = 0x00;
 
 int j = 0;

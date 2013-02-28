@@ -1,14 +1,12 @@
-#ifndef UART
-#define UART
+
+#ifndef UART_H
+#define UART_H
 #include <avr/io.h>
+#include "utils.h"
+#include "system_config.h"
 
-typedef uint8_t bool;
 
-#define true 1
-#define false 0
 
-#define RECEIVE_BUFFER_SIZE CRC_PACKET_LENGTH
-#define TRANSMIT_BUFFER_SIZE CRC_PACKET_LENGTH
 #define NO_DATA 0x00
 
 #define MYUBRR ((FOSC/BAUD/8)-1)

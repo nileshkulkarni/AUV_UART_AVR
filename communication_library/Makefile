@@ -80,7 +80,7 @@ OBJDIR = .
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c uart.c crc.c
+SRC = $(TARGET).c uart.c crc.c link.c motion.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -583,7 +583,7 @@ $(OBJDIR)/%.o : %.S
 
 
 # Target: clean project.
-clean: begin clean_list end
+clean: begin clean_list end 
 
 clean_list :
 	@echo

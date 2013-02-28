@@ -5,17 +5,12 @@
 #include <stdint.h>
 
 
-bool uartReceive;
-char uartReceivedData;
-bool uartTransmitValue;
-char uartTransmittedData;
 bool uartReceiveBufferFull;
 int uartReceiveBufferLength;
-bool uartTransmitBufferFull;
 
 
-char uartReceiveBuffer[RECEIVE_BUFFER_SIZE];
-char uartTransmitBuffer[TRANSMIT_BUFFER_SIZE];
+char uartReceiveBuffer[UART_BUFFER_SIZE];
+char uartTransmitBuffer[UART_BUFFER_SIZE];
 
 
 
@@ -29,11 +24,8 @@ void uart_init( uint16_t ubrr){
 		UCSR2B |= (1<<RXCIE2)|(1<<TXCIE2)|(1<<RXEN2)|(1<<TXEN2);
 		/* Set frame format: 8data, 1 stop bit */
 		UCSR2C = (1<<UCSZ20)|(1<<UCSZ21);
-		uartTransmitValue = true;
-		uartReceive = false;
 		uartReceiveBufferLength=0;
-		uartReceiveBufferFull=false;
-		uartTransmitBufferFull=false;
+		uartReceiveBufferFull=FALSE;
 
 } 
 
@@ -42,22 +34,10 @@ void put_c(unsigned char data){
 		while ( !( UCSR2A & (1<<UDRE2)) ); /* wait for empty transmit buffer*/
 		/* Put data into buffer, sends the data */
 		UDR2 = data ;
-		uartTransmitValue=false;
 }
 
 
 
-/*
-unsigned char get_c(){
-	if(uartReceiveValue){	
-			return uartReceivedData;
-			uartReceive = false;
-	}	
-	else{
-			return NO_DATA;		
-	}
-}
-*/
 
 void put_s(char * buffer, int bufferlen){
 	
@@ -68,21 +48,14 @@ void put_s(char * buffer, int bufferlen){
 
 ISR(USART2_RX_vect){
 	while ( !(UCSR2A & (1<<RXC2)));
-	uartReceive=true;
-	uartReceivedData = UDR2;
 	
-	if(uartReceiveBufferLength < RECEIVE_BUFFER_SIZE){
-			uartReceiveBuffer[uartReceiveBufferLength]=uartReceivedData;
+	if(uartReceiveBufferLength < UART_BUFFER_SIZE){
+			uartReceiveBuffer[uartReceiveBufferLength]=UDR2;
 			uartReceiveBufferLength++;
-			if(uartReceiveBufferLength ==RECEIVE_BUFFER_SIZE){
-					uartReceiveBufferFull =true;
+			if(uartReceiveBufferLength ==UART_BUFFER_SIZE){
+					uartReceiveBufferFull =TRUE;
 					
 			}
 	}
 	
 }
-/*
-ISR(USART2_TX_vect){
-	uartTransmitValue=true;
-}	
-*/
