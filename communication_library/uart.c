@@ -7,8 +7,6 @@
 
 bool uartReceiveBufferFull;
 int uartReceiveBufferLength;
-
-
 char uartReceiveBuffer[UART_BUFFER_SIZE];
 char uartTransmitBuffer[UART_BUFFER_SIZE];
 
