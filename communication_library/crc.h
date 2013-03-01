@@ -16,6 +16,8 @@ global array of data is assumed as x+y
 #define CRC_MESSAGE_BIT_LENGTH (UART_BUFFER_SIZE-1)*8
 #define CRC_POLYNOMIAL_BIT_LENGTH 8
 #define CRC_PACKET_LENGTH UART_BUFFER_SIZE
+#define DATA_RECEIVED_TRUE 0xAA
+#define DATA_RECEIVED_FALSE 0xBB
 
 /*
 crcEncrypt would modify the global array 'data' and append checkbits to it.

@@ -10,7 +10,7 @@ int main(void){
 	uart_init(MYUBRR);	
 	sei();
 	while(1){
-		linkHandle();
+		communicate();
 	}
 	return 0;
 

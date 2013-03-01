@@ -1,5 +1,8 @@
 #include "utils.h"
 #include "uart.h"
+#include "database.h"
+
+extern struct database theDabase;
 
 
 extern char uartReceiveBuffer[UART_BUFFER_SIZE];
