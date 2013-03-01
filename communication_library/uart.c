@@ -46,9 +46,11 @@ void put_s(char * buffer, int bufferlen){
 
 ISR(USART2_RX_vect){
 	while ( !(UCSR2A & (1<<RXC2)));
+	PORTC=0XAA;
 	
 	if(uartReceiveBufferLength < UART_BUFFER_SIZE){
 			uartReceiveBuffer[uartReceiveBufferLength]=UDR2;
+			PORTC = uartReceiveBufferFull;   //nilesh
 			uartReceiveBufferLength++;
 			if(uartReceiveBufferLength ==UART_BUFFER_SIZE){
 					uartReceiveBufferFull =TRUE;
