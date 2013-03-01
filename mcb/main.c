@@ -1,6 +1,5 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "crc.h"
 #include "hw/hw.h"
 #include "database.h"
 #include "communicate.h"

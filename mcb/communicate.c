@@ -1,4 +1,4 @@
-#include "crc.h"
+#include "../common/crc.h"
 #include "hw/hw.h"
 #include "controller.h"
 #include "database.h"
