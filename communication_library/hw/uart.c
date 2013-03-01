@@ -1,20 +1,21 @@
-#include "hw.h"
-#include "crc.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdint.h>
+#include "hw.h"
+#include "../system_config.h"
 
 
-bool uartReceiveBufferFull;
-int uartReceiveBufferLength;
-uint8_t uartReceiveBuffer[UART_BUFFER_SIZE];
-uint8_t uartTransmitBuffer[UART_BUFFER_SIZE];
+bool sbcReceiveBufferFull;
+int sbcReceiveBufferLength;
+uint8_t sbcReceiveBuffer[SBC_BUFFER_SIZE];
+uint8_t sbcTransmitBuffer[SBC_BUFFER_SIZE];
 
 
 
 
-void uartInit( uint16_t ubrr){
+void uartInit(){
 		/* Set baud rate */
+		uint16_t ubrr = BAUD_UBRR;
 		UBRR2H = (uint8_t)(ubrr>>8);
 		UBRR2L = (uint8_t)ubrr;
 		/* Enable receiver and transmitter */
@@ -22,8 +23,8 @@ void uartInit( uint16_t ubrr){
 		UCSR2B |= (1<<RXCIE2)|(1<<TXCIE2)|(1<<RXEN2)|(1<<TXEN2);
 		/* Set frame format: 8data, 1 stop bit */
 		UCSR2C = (1<<UCSZ20)|(1<<UCSZ21);
-		uartReceiveBufferLength=0;
-		uartReceiveBufferFull=FALSE;
+		sbcReceiveBufferLength=0;
+		sbcReceiveBufferFull=FALSE;
 
 } 
 
@@ -47,11 +48,11 @@ void put_s(uint8_t * buffer, int bufferlen){
 ISR(USART2_RX_vect){
 	while ( !(UCSR2A & (1<<RXC2)));
 	
-	if(uartReceiveBufferLength < UART_BUFFER_SIZE){
-			uartReceiveBuffer[uartReceiveBufferLength]=UDR2;
-			uartReceiveBufferLength++;
-			if(uartReceiveBufferLength ==UART_BUFFER_SIZE){
-					uartReceiveBufferFull =TRUE;
+	if(sbcReceiveBufferLength < SBC_BUFFER_SIZE){
+			sbcReceiveBuffer[sbcReceiveBufferLength]=UDR2;
+			sbcReceiveBufferLength++;
+			if(sbcReceiveBufferLength ==SBC_BUFFER_SIZE){
+					sbcReceiveBufferFull =TRUE;
 					
 			}
 	}

@@ -9,9 +9,9 @@
 
 #define NO_DATA 0x00
 
-#define MYUBRR ((FOSC/BAUD/8)-1)
+#define BAUD_UBRR ((FOSC/BAUD/8)-1)
 
-void uartInit(uint16_t ubrr);
+void uartInit(void);
 void put_c(uint8_t a);
 void put_s(uint8_t * buffer, int bufferlen);
 

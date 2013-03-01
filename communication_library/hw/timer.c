@@ -1,8 +1,11 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "system_config.h"
+#include "../system_config.h"
+#include "../utils.h"
 
 #define MOTION_CONRTROLLER_OCR (FOSC/MOTION_CONTROLLER_FREQ/1024)
+
+extern volatile bool runController;
 
 void timerInit(void) {
 /* prescaler = 1024 */
@@ -19,6 +22,7 @@ TCNT1 = 0;
 ISR (TIMER1_COMPA_vect) {
 /* simulating CTC mode by forcing TCNT1 = 0 */
 TCNT1 = 0;
+runController = TRUE;
 /*
 static int i = 0;
 	if (i == 0) {

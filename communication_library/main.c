@@ -10,13 +10,13 @@ struct database theDatabase;
 int main(void){
 	DDRC = 0xFF;
 	PORTC = 0xAF;
-	uartInit(MYUBRR);	
+	uartInit();	
 	timerInit();
 	adcInit();
 	sei();
-	while(1){
-		communicate();
-	}
+	
+	/* entern the infinitum of communication */
+	communicate();
 	return 0;
 
 }

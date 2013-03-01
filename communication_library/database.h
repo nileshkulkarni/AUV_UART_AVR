@@ -16,7 +16,7 @@ uint8_t depthSetPoint, yawSetPoint;
 uint8_t surgeVelSetPoint, swayVelSetPoint;
 
 /*etc*/
-uint8_t pwm[6];
+uint16_t pwm[6];
 uint8_t mode;
 uint16_t validity;
 
@@ -59,7 +59,7 @@ uint16_t validity;
 #define M_5_PWM 10
 #define M_6_PWM 12
 #define DEBUG_1 14
-#define DEBUG_2 16
+#define DEBUG_2 15
 #define DEBUG_3 16
 #define DEBUG_4 17
 #define DEBUG_5 18

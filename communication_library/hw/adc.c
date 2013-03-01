@@ -1,7 +1,7 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include "system_config.h"
-#include "utils.h"
+#include "../system_config.h"
+#include "../utils.h"
 
 volatile uint16_t adcData;
 volatile bool adcReceivedData;
@@ -25,6 +25,7 @@ ISR(ADC_vect) {
 adcData = 0x0000 & ADCL;
 adcData += ((0x00FF & ADCH)<<8);
 adcReceivedData = TRUE;
+/*
 static int i = 0;
 	if (i == 0) {
 	PORTC = 0x0F;
@@ -34,4 +35,5 @@ static int i = 0;
 	PORTC = 0x00;
 	i = 0;
 	}
+	*/
 }

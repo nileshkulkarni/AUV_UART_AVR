@@ -1,8 +1,8 @@
 #include "database.h"
 #include "hw/hw.h"
 
-extern char uartTransmitBuffer[UART_BUFFER_SIZE];
-extern char uartReceiveBuffer[UART_BUFFER_SIZE];
+extern char sbcTransmitBuffer[SBC_BUFFER_SIZE];
+extern char sbcReceiveBuffer[SBC_BUFFER_SIZE];
 extern struct database theDatabase;
 /*
 Format of the transmit buffer is as follows:
@@ -40,48 +40,67 @@ the 'validity' byte is to be interpreted bit wise. validity byte corressponds to
 */
 
 void updateTransmitBuffer (void) {
-uartTransmitBuffer[SENSOR_DEPTH_POS] = theDatabase.sensorDepth;
-uartTransmitBuffer[M_1_PWM] = theDatabase.pwm[0];
-uartTransmitBuffer[M_2_PWM] = theDatabase.pwm[1];
-uartTransmitBuffer[M_3_PWM] = theDatabase.pwm[2];
-uartTransmitBuffer[M_4_PWM] = theDatabase.pwm[3];
-uartTransmitBuffer[M_5_PWM] = theDatabase.pwm[4];
-uartTransmitBuffer[M_6_PWM] = theDatabase.pwm[5];
+sbcTransmitBuffer[SENSOR_DEPTH_POS] = theDatabase.sensorDepth;
+
+sbcTransmitBuffer[M_1_PWM] = theDatabase.pwm[0] >> 8;
+sbcTransmitBuffer[M_1_PWM+1] = theDatabase.pwm[0];
+
+sbcTransmitBuffer[M_2_PWM] = theDatabase.pwm[1] >> 8;
+sbcTransmitBuffer[M_2_PWM+1] = theDatabase.pwm[1];
+
+sbcTransmitBuffer[M_3_PWM] = theDatabase.pwm[2] >> 8;
+sbcTransmitBuffer[M_3_PWM+1] = theDatabase.pwm[2];
+
+sbcTransmitBuffer[M_4_PWM] = theDatabase.pwm[3] >> 8;
+sbcTransmitBuffer[M_4_PWM+1] = theDatabase.pwm[3];
+
+sbcTransmitBuffer[M_5_PWM] = theDatabase.pwm[4] >> 8;
+sbcTransmitBuffer[M_5_PWM+1] = theDatabase.pwm[4];
+
+sbcTransmitBuffer[M_6_PWM] = theDatabase.pwm[5] >> 8;
+sbcTransmitBuffer[M_6_PWM+1] = theDatabase.pwm[5];
+
+sbcTransmitBuffer[DEBUG_1] = 'x';
+sbcTransmitBuffer[DEBUG_2] = 'x';
+sbcTransmitBuffer[DEBUG_3] = 'x';
+sbcTransmitBuffer[DEBUG_4] = 'x';
+sbcTransmitBuffer[DEBUG_5] = 'x';
+sbcTransmitBuffer[DEBUG_6] = 'x';
 
 }
 
 
 void updateDatabase (void) {
 
-theDatabase.validity = uartReceiveBuffer[VALIDITY_POS];
+theDatabase.validity = sbcReceiveBuffer[VALIDITY_POS];
 	if(theDatabase.validity & YAW_PID_VALID) {
-		theDatabase.kpYaw = uartReceiveBuffer[KP_YAW_POS];
-		theDatabase.kdYaw = uartReceiveBuffer[KD_YAW_POS];
-		theDatabase.kiYaw = uartReceiveBuffer[KI_YAW_POS];
+		theDatabase.kpYaw = sbcReceiveBuffer[KP_YAW_POS];
+		theDatabase.kdYaw = sbcReceiveBuffer[KD_YAW_POS];
+		theDatabase.kiYaw = sbcReceiveBuffer[KI_YAW_POS];
 	}
 	if(theDatabase.validity & DEPTH_PID_VALID) {
-		theDatabase.kpDepth = uartReceiveBuffer[KP_DEPTH_POS];
-		theDatabase.kdDepth = uartReceiveBuffer[KD_DEPTH_POS];
-		theDatabase.kiDepth = uartReceiveBuffer[KI_DEPTH_POS];
+		theDatabase.kpDepth = sbcReceiveBuffer[KP_DEPTH_POS];
+		theDatabase.kdDepth = sbcReceiveBuffer[KD_DEPTH_POS];
+		theDatabase.kiDepth = sbcReceiveBuffer[KI_DEPTH_POS];
 	}
 	if(theDatabase.validity & VEL_CALIB_VALID) {
-		theDatabase.cSurge = uartReceiveBuffer[C_SURGE_POS];
-		theDatabase.cSway = uartReceiveBuffer[C_SWAY_POS];
+		theDatabase.cSurge = sbcReceiveBuffer[C_SURGE_POS];
+		theDatabase.cSway = sbcReceiveBuffer[C_SWAY_POS];
 	}
 	if(theDatabase.validity & YAW_SET_POINT_VALID) {
-		theDatabase.yawSetPoint = uartReceiveBuffer[YAW_SET_POINT_POS];
+		theDatabase.yawSetPoint = sbcReceiveBuffer[YAW_SET_POINT_POS];
 	}
 	if(theDatabase.validity & DEPTH_SET_POINT_VALID) {
-		theDatabase.depthSetPoint = uartReceiveBuffer[DEPTH_SET_POINT_POS];
+		theDatabase.depthSetPoint = sbcReceiveBuffer[DEPTH_SET_POINT_POS];
 	}
 	if(theDatabase.validity & YAW_SENSOR_DATA_VALID) {
-		theDatabase.yawSetPoint = uartReceiveBuffer[SENSOR_DEPTH_POS];
+		theDatabase.yawSetPoint = sbcReceiveBuffer[SENSOR_DEPTH_POS];
 	}
 	if(theDatabase.validity & SURGE_VEL_SET_POINT_VALID) {
-		theDatabase.surgeVelSetPoint = uartReceiveBuffer[SURGE_VEL_SET_POINT_POS];
+		theDatabase.surgeVelSetPoint = sbcReceiveBuffer[SURGE_VEL_SET_POINT_POS];
 		}
 	if(theDatabase.validity & SWAY_VEL_SET_POINT_VALID) {
-		theDatabase.swayVelSetPoint = uartReceiveBuffer[SWAY_VEL_SET_POINT_POS];
+		theDatabase.swayVelSetPoint = sbcReceiveBuffer[SWAY_VEL_SET_POINT_POS];
 		}
 
 
