@@ -12,7 +12,7 @@ void communicate(void) {
 
 	while(1) {
 		if (sbcReceiveBufferFull == TRUE) {
-			bool b = crc8Decrypt(sbcReceiveBuffer);
+			bool b = crc8Decrypt(sbcReceiveBuffer,SBC_BUFFER_SIZE);
 			if (b == TRUE) {
 				updateDatabase();
 				sbcTransmitBuffer[0] = DATA_RECEIVED_TRUE;	
@@ -23,7 +23,7 @@ void communicate(void) {
 			pressureSensorHandler();
 			motionControl(); // this function would modify theDatabase
 			updateTransmitBuffer(); 
-			crc8Encrypt(sbcTransmitBuffer);
+			crc8Encrypt(sbcTransmitBuffer,SBC_BUFFER_SIZE);
 			put_s(sbcTransmitBuffer,SBC_BUFFER_SIZE);
 			sbcReceiveBufferFull = FALSE;
 			sbcReceiveBufferLength = 0;

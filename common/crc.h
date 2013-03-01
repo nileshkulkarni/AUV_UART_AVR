@@ -13,20 +13,17 @@ global array of data is assumed as x+y
 #include "system_config.h"
 
 #define CRC_POLYNOMIAL 0xAB
-#define CRC_MESSAGE_BIT_LENGTH (SBC_BUFFER_SIZE-1)*8
-#define CRC_POLYNOMIAL_BIT_LENGTH 8
-#define CRC_PACKET_LENGTH SBC_BUFFER_SIZE
 #define DATA_RECEIVED_TRUE 0xAA
 #define DATA_RECEIVED_FALSE 0xBB
 
 /*
 crcEncrypt would modify the global array 'data' and append checkbits to it.
 */
-void crc8Encrypt(uint8_t* table);
+void crc8Encrypt(uint8_t* table,uint8_t table_length);
 
 /*
 it returns the payload length
 */
-uint8_t crc8Decrypt(uint8_t* table);
+uint8_t crc8Decrypt(uint8_t* table,uint8_t table_length);
 
 #endif

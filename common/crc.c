@@ -1,17 +1,16 @@
 #include "crc.h"
 #include "utils.h"
 
-void crc8(uint8_t* crc_table) {
-
+void crc8(uint8_t* crc_table,uint8_t table_length) {
 uint16_t i=0;
-uint8_t table[CRC_PACKET_LENGTH];
+uint8_t table[table_length];
 uint8_t temp_upper, temp_lower, temp;
 
-	for (i=0;i<CRC_PACKET_LENGTH;i++) {
+	for (i=0;i<table_length;i++) {
 		table[i] = crc_table[i];
 	}
 
-	for (i=0;i<CRC_PACKET_LENGTH-1;i++) {
+	for (i=0;i<table_length-1;i++) {
 		uint8_t j = 0;
 		for (j=0;j<8;j++) {
 			if (table[i] & (0x80 >> j)) {
@@ -34,18 +33,18 @@ uint8_t temp_upper, temp_lower, temp;
 			}
 		}
 	}
-crc_table[CRC_PACKET_LENGTH-1] = table[CRC_PACKET_LENGTH-1];
+crc_table[table_length-1] = table[table_length-1];
 }
 
-void crc8Encrypt(uint8_t* crc_table) {
-crc_table[CRC_PACKET_LENGTH-1] = 0x00;
-crc8(crc_table);
+void crc8Encrypt(uint8_t* crc_table, uint8_t table_length) {
+crc_table[table_length-1] = 0x00;
+crc8(crc_table,table_length);
 }
 
 
-uint8_t crc8Decrypt(uint8_t* crc_table) {
-crc8(crc_table);
-	if(crc_table[CRC_PACKET_LENGTH-1] == 0x00) {
+uint8_t crc8Decrypt(uint8_t* crc_table, uint8_t table_length) {
+crc8(crc_table,table_length);
+	if(crc_table[table_length-1] == 0x00) {
 		return TRUE;
 	}
 	else {
