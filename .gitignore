@@ -7,4 +7,5 @@
 *.sym
 *.swp
 a.out
-
+*.hex
+*.o.d
