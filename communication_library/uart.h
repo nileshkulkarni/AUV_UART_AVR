@@ -10,7 +10,6 @@
 #define NO_DATA 0x00
 
 #define MYUBRR ((FOSC/BAUD/8)-1)
-#define FOSC 14745600 
 void uart_init(uint16_t ubrr);
 void put_c(unsigned char a);
 void put_s(char * buffer, int bufferlen);

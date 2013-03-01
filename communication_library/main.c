@@ -7,7 +7,10 @@
 struct database theDatabase;
 
 int main(void){
+	DDRC = 0xFF;
+	PORTC = 0xAF;
 	uart_init(MYUBRR);	
+	timer_init();
 	sei();
 	while(1){
 		communicate();
