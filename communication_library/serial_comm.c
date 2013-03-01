@@ -29,6 +29,7 @@ void communicate(void) {
 			uartReceiveBufferLength = 0;
 		}
 		else {
+			pressureSensorHandler();
 			motionControl();
 		}
 	}
