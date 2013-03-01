@@ -2,6 +2,6 @@
 #define SYSTEM_H
 
 #define BAUD 9600
-#define UART_BUFFER_SIZE 5
+#define UART_BUFFER_SIZE 20
 
 #endif

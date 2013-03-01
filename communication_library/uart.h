@@ -14,5 +14,5 @@
 void uart_init(uint16_t ubrr);
 void put_c(unsigned char a);
 void put_s(char * buffer, int bufferlen);
-unsigned char get_c();
+unsigned char get_c(void);
 #endif
