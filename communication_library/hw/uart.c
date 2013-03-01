@@ -1,4 +1,4 @@
-#include "uart.h"
+#include "hw.h"
 #include "crc.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -7,16 +7,16 @@
 
 bool uartReceiveBufferFull;
 int uartReceiveBufferLength;
-char uartReceiveBuffer[UART_BUFFER_SIZE];
-char uartTransmitBuffer[UART_BUFFER_SIZE];
+uint8_t uartReceiveBuffer[UART_BUFFER_SIZE];
+uint8_t uartTransmitBuffer[UART_BUFFER_SIZE];
 
 
 
 
-void uart_init( uint16_t ubrr){
+void uartInit( uint16_t ubrr){
 		/* Set baud rate */
-		UBRR2H = (unsigned char)(ubrr>>8);
-		UBRR2L = (unsigned char)ubrr;
+		UBRR2H = (uint8_t)(ubrr>>8);
+		UBRR2L = (uint8_t)ubrr;
 		/* Enable receiver and transmitter */
 		UCSR2A |= (1<<U2X2);
 		UCSR2B |= (1<<RXCIE2)|(1<<TXCIE2)|(1<<RXEN2)|(1<<TXEN2);
@@ -27,7 +27,7 @@ void uart_init( uint16_t ubrr){
 
 } 
 
-void put_c(unsigned char data){
+void put_c(uint8_t data){
 	
 		while ( !( UCSR2A & (1<<UDRE2)) ); /* wait for empty transmit buffer*/
 		/* Put data into buffer, sends the data */
@@ -37,7 +37,7 @@ void put_c(unsigned char data){
 
 
 
-void put_s(char * buffer, int bufferlen){
+void put_s(uint8_t * buffer, int bufferlen){
 	
 	for(int i=0;i<bufferlen;i++){
 				put_c(*buffer++);

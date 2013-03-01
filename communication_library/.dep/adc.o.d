@@ -1,7 +1,5 @@
-adc.o: adc.c system_config.h utils.h database.h
+hw/adc.o: hw/adc.c system_config.h utils.h
 
 system_config.h:
 
 utils.h:
-
-database.h:

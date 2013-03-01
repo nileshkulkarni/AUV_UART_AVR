@@ -1,9 +1,14 @@
-uart.o: uart.c uart.h utils.h system_config.h crc.h
+hw/uart.o: hw/uart.c hw/hw.h utils.h system_config.h crc.h utils.h \
+ system_config.h
 
-uart.h:
+hw/hw.h:
 
 utils.h:
 
 system_config.h:
 
 crc.h:
+
+utils.h:
+
+system_config.h:

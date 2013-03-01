@@ -1,6 +1,5 @@
-#include "link.h"
 #include "crc.h"
-#include "uart.h"
+#include "hw/hw.h"
 #include "motion.h"
 #include "database.h"
 

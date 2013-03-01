@@ -1,5 +1,5 @@
 #include "database.h"
-#include "uart.h"
+#include "hw/hw.h"
 
 extern char uartTransmitBuffer[UART_BUFFER_SIZE];
 extern char uartReceiveBuffer[UART_BUFFER_SIZE];

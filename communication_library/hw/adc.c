@@ -2,11 +2,9 @@
 #include <avr/io.h>
 #include "system_config.h"
 #include "utils.h"
-#include "database.h"
 
 volatile uint16_t adcData;
 volatile bool adcReceivedData;
-extern struct database theDatabase;
 
 void adcInit(void) {
 /* enable ADC and interrupt */
@@ -35,15 +33,5 @@ static int i = 0;
 	else {
 	PORTC = 0x00;
 	i = 0;
-	}
-}
-
-
-void pressureSensorHandler (void) {
-
-	if (adcReceivedData == TRUE) {
-		theDatabase.sensorDepth = (DEPTH_CALIBRATION_SLOPE*adcData) + DEPT_CALIBRATION_INTERCEPT;
-		adcReceivedData = FALSE;
-		adcStartSampling();
 	}
 }
