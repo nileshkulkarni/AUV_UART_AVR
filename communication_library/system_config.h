@@ -4,6 +4,6 @@
 #define FOSC 14745600 
 #define BAUD 9600
 #define UART_BUFFER_SIZE 20
-#define MOTION_CONTROLLER_TIME_STEP 10 // in mili seconds
+#define MOTION_CONTROLLER_FREQ 20 // in hertz
 
 #endif
