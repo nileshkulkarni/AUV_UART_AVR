@@ -21,6 +21,7 @@ void communicate(void) {
 			else {
 				uartTransmitBuffer[0] = DATA_RECEIVED_FALSE;
 			}
+			pressureSensorHandler();
 			motionControl(); // this function would modify theDatabase
 			updateTransmitBuffer(); 
 			crc8Encrypt(uartTransmitBuffer);

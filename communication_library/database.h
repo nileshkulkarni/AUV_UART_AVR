@@ -9,7 +9,8 @@ uint8_t kpYaw,kdYaw,kiYaw;
 uint8_t kpDepth,kdDepth,kiDepth;
 uint8_t cSurge, cSway;
 /*sensor readings*/
-uint8_t sensorDepth, sensorYaw;
+uint8_t sensorYaw;
+uint16_t sensorDepth;
 /*set points*/
 uint8_t depthSetPoint, yawSetPoint;
 uint8_t surgeVelSetPoint, swayVelSetPoint;
