@@ -9,6 +9,7 @@ int main(void){
 	uartInit();	
 	timerInit();
 	adcInit();
+
 	sei();
 	
 	put_s("auv-iitb",8);

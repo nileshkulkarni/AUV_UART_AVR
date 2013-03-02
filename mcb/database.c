@@ -1,8 +1,8 @@
 #include "database.h"
 #include "hw/hw.h"
 
-extern char sbcTransmitBuffer[SBC_BUFFER_SIZE];
-extern char sbcReceiveBuffer[SBC_BUFFER_SIZE];
+extern char sbcTransmitBuffer[MCB_SBC_BUFFER_SIZE];
+extern char sbcReceiveBuffer[MCB_SBC_BUFFER_SIZE];
 extern struct database theDatabase;
 /*
 Format of the transmit buffer is as follows:

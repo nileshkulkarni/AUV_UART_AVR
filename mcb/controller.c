@@ -1,7 +1,7 @@
-#include "utils.h"
+#include "../common/utils.h"
 #include "hw/hw.h"
 #include "database.h"
-#include "system_config.h"
+#include "../common/system_config.h"
 
 extern struct database theDatabase;
 volatile bool runController;

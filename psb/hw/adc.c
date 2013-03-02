@@ -1,7 +1,6 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include "../system_config.h"
-#include "../utils.h"
+#include "hw/hw.h"
 
 volatile uint16_t adcData;
 volatile bool adcReceivedData;

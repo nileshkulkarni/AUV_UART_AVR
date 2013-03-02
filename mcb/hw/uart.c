@@ -2,20 +2,19 @@
 #include <avr/interrupt.h>
 #include <stdint.h>
 #include "hw.h"
-#include "../system_config.h"
 
 
 bool sbcReceiveBufferFull;
 int sbcReceiveBufferLength;
-uint8_t sbcReceiveBuffer[SBC_BUFFER_SIZE];
-uint8_t sbcTransmitBuffer[SBC_BUFFER_SIZE];
+uint8_t sbcReceiveBuffer[MCB_SBC_BUFFER_SIZE];
+uint8_t sbcTransmitBuffer[MCB_SBC_BUFFER_SIZE];
 
 
 
 
 void uartInit(){
 		/* Set baud rate */
-		uint16_t ubrr = BAUD_UBRR;
+		uint16_t ubrr = MCB_SBC_BAUD_UBRR;
 		UBRR2H = (uint8_t)(ubrr>>8);
 		UBRR2L = (uint8_t)ubrr;
 		/* Enable receiver and transmitter */
@@ -48,10 +47,10 @@ void put_s(uint8_t * buffer, int bufferlen){
 ISR(USART2_RX_vect){
 	while ( !(UCSR2A & (1<<RXC2)));
 	
-	if(sbcReceiveBufferLength < SBC_BUFFER_SIZE){
+	if(sbcReceiveBufferLength < MCB_SBC_BUFFER_SIZE){
 			sbcReceiveBuffer[sbcReceiveBufferLength]=UDR2;
 			sbcReceiveBufferLength++;
-			if(sbcReceiveBufferLength ==SBC_BUFFER_SIZE){
+			if(sbcReceiveBufferLength ==MCB_SBC_BUFFER_SIZE){
 					sbcReceiveBufferFull =TRUE;
 					
 			}

@@ -1,17 +1,15 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "../system_config.h"
-#include "../utils.h"
+#include "hw.h"
 
-#define MOTION_CONRTROLLER_OCR (FOSC/MOTION_CONTROLLER_FREQ/1024)
 
 extern volatile bool runController;
 
 void timerInit(void) {
 /* prescaler = 1024 */
 TCCR1B = (1 << CS02) | (1 << CS00);
-OCR1AH = (MOTION_CONRTROLLER_OCR & 0xFF00) >> 8;
-OCR1AL = MOTION_CONRTROLLER_OCR & 0x00FF;
+OCR1AH = (MOTION_CONTROLLER_OCR & 0xFF00) >> 8;
+OCR1AL = MOTION_CONTROLLER_OCR & 0x00FF;
 /* enabling compare match interrupts */
 TIMSK1 = (1 << OCIE1A);
 TIFR1 = (1 << OCF1A);

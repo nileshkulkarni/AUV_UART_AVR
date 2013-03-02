@@ -1,0 +1,11 @@
+Here follows the structure of the hardware
+
+	SBC ----- MCB ----- PSB
+
+where the boards communicate using the UART protocol.
+
+PSB :: Pressure Sensor Board
+MCB :: Motion Controller Board
+SBC :: Single Board Computer
+
+

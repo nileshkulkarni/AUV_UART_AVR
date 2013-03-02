@@ -1,9 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "../system_config.h"
-#include "../utils.h"
+#include "hw.h"
 
-#define PRESSURE_SENSOR_OCR (FOSC/PRESSURE_SENSOR_FREQ/1024)
 
 extern volatile bool runEstimator;
 
