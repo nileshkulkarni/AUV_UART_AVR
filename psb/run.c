@@ -30,6 +30,7 @@ void run(void) {
 			mcbReceiveBufferLength = 0;
 		}
 		else {
+			//updateDatabase();
 			estimateDepth();
 		}
 	}

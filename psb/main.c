@@ -10,9 +10,9 @@ int main(void){
 	timerInit();
 	adcInit();
 
+	pressureInit();
+
 	sei();
-	
-	put_s("auv-iitb",8);
 
 	run();
 	return 0;

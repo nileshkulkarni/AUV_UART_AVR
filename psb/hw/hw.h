@@ -21,6 +21,6 @@ void timerInit(void);
 
 /* ADC for the pressure sensor */
 void adcInit(void);
-void adcStartSampling(void);
+uint16_t adcSample(void);
 
 #endif

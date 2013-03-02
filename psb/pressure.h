@@ -7,7 +7,10 @@ i.e,
 depth = slope*adcData + intercept
 */
 
-void estimateDepth (void);
+#define PRESSURE_INTERCEPT 120
+#define PRESSURE_SLOPE 6
 
+void estimateDepth(void);
+void pressureInit(void);
 
 #endif
