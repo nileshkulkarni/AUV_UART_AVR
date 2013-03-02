@@ -14,11 +14,11 @@ int main(){
 	uart_init(MYUBRR);	
 	DDRC=0xFF;
 	sei();
-	
+	PORTC= 0xAA;	
 	while(1){
 		//linkHandle();
 		//motionControl();
-		
+	
 		if(uartReceiveBufferFull){
 				put_s(uartReceiveBuffer,UART_BUFFER_SIZE);
 				PORTC=0xAA;
@@ -30,6 +30,17 @@ int main(){
 				continue;
 		}	
 	}
+		/*	
+			uint32_t i =0;
+			while(i!=100000){
+					i++;
+			}
+			PORTC= 0x01;
+			while(i!=0){
+					i--;
+			}
+			PORTC=0xA0;
+	}*/
 	return 0;
 
 }
