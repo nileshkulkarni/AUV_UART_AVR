@@ -1,13 +1,13 @@
 #include "../common/utils.h"
+#include "database.h"
 
 volatile bool runEstimator;
-uint16_t depth;
-extern uint16_t adcData;
+extern struct database theDatabase;
 
 void estimateDepth (void) {
 
 	if (runEstimator == TRUE) {
-		depth = adcData;	
+		theDatabase.depth = theDatabase.adcData;
 		runEstimator = FALSE;
 	}
 

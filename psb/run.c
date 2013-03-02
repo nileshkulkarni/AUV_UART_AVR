@@ -10,20 +10,20 @@ extern uint8_t depth;
 
 extern uint8_t adcData;
 
-void communicate(void) {
+void run(void) {
 
 	while(1) {
 		if (mcbReceiveBufferFull == TRUE) {
 			bool b = crc8Decrypt(mcbReceiveBuffer,PSB_MCB_BUFFER_SIZE);
 			if (b == TRUE) {
+				updateDatabase();
 				mcbTransmitBuffer[0] = DATA_RECEIVED_TRUE;
 			}
 			else {
 				mcbTransmitBuffer[0] = DATA_RECEIVED_FALSE;
 			}
 			estimateDepth();
-			mcbTransmitBuffer[1] = depth;
-			mcbTransmitBuffer[2] = depth >> 8;
+			updateTransmitBuffer();
 			crc8Encrypt(mcbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
 			put_s(mcbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
 			mcbReceiveBufferFull = FALSE;

@@ -14,7 +14,5 @@
 #define MOTION_CONTROLLER_FREQ 20 // in hertz
 #define PRESSURE_SENSOR_FREQ 20 // in hertz
 
-#define DEPTH_CALIBRATION_SLOPE 1
-#define DEPT_CALIBRATION_INTERCEPT 0
 
 #endif

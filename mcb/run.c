@@ -8,7 +8,7 @@ extern char sbcTransmitBuffer[MCB_SBC_BUFFER_SIZE];
 extern bool sbcReceiveBufferFull;
 extern int sbcReceiveBufferLength;
 
-void communicate(void) {
+void run(void) {
 
 	while(1) {
 		if (sbcReceiveBufferFull == TRUE) {

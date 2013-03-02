@@ -14,7 +14,7 @@ int main(void){
 	
 	put_s("auv-iitb",8);
 
-	communicate();
+	run();
 	return 0;
 
 }

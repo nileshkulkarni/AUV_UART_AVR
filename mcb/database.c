@@ -3,7 +3,7 @@
 
 extern char sbcTransmitBuffer[MCB_SBC_BUFFER_SIZE];
 extern char sbcReceiveBuffer[MCB_SBC_BUFFER_SIZE];
-extern struct database theDatabase;
+struct database theDatabase;
 /*
 Format of the transmit buffer is as follows:
 

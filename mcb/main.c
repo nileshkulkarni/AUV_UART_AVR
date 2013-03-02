@@ -2,20 +2,18 @@
 #include <util/delay.h>
 #include "hw/hw.h"
 #include "database.h"
-#include "communicate.h"
+#include "run.h"
 
-struct database theDatabase;
 
 int main(void){
 	DDRC = 0xFF;
 	PORTC = 0xAF;
 	uartInit();	
 	timerInit();
-	adcInit();
 	sei();
 	
-	/* entern the infinitum of communication */
-	communicate();
+	/* entern the infinitum of communication and controlling*/
+	run();
 	return 0;
 
 }
