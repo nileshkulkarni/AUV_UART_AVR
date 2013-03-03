@@ -26,7 +26,6 @@ swayVelSetPoint
 surgeVelSetPoint
 pwm[6]
 mode
-validity
 psbMode
 
 the 'mode' entry can take the possible values:
@@ -44,6 +43,7 @@ the 'validity' byte is to be interpreted bit wise. validity byte corressponds to
 
 void updateSbcTransmitBuffer (void) {
 sbcTransmitBuffer[MCB_SBC_SENSOR_DEPTH_POS] = theDatabase.sensorDepth;
+sbcTransmitBuffer[MCB_SBC_SENSOR_DEPTH_POS+1] = theDatabase.sensorDepth >> 8;
 
 sbcTransmitBuffer[MCB_SBC_M_1_PWM_POS] = theDatabase.pwm[0] >> 8;
 sbcTransmitBuffer[MCB_SBC_M_1_PWM_POS+1] = theDatabase.pwm[0];
@@ -79,38 +79,39 @@ psbTransmitBuffer[PSB_MCB_MODE_POS] = theDatabase.psbMode;
 
 void updateSbcDatabase (void) {
 
-theDatabase.validity = sbcReceiveBuffer[MCB_SBC_VALIDITY_POS];
-	if(theDatabase.validity & MCB_SBC_YAW_PID_VALID) {
-		theDatabase.kpYaw = sbcReceiveBuffer[MCB_SBC_KP_YAW_POS];
-		theDatabase.kdYaw = sbcReceiveBuffer[MCB_SBC_KD_YAW_POS];
-		theDatabase.kiYaw = sbcReceiveBuffer[MCB_SBC_KI_YAW_POS];
-	}
-	if(theDatabase.validity & MCB_SBC_DEPTH_PID_VALID) {
-		theDatabase.kpDepth = sbcReceiveBuffer[MCB_SBC_KP_DEPTH_POS];
-		theDatabase.kdDepth = sbcReceiveBuffer[MCB_SBC_KD_DEPTH_POS];
-		theDatabase.kiDepth = sbcReceiveBuffer[MCB_SBC_KI_DEPTH_POS];
-	}
-	if(theDatabase.validity & MCB_SBC_VEL_CALIB_VALID) {
-		theDatabase.cSurge = sbcReceiveBuffer[MCB_SBC_C_SURGE_POS];
-		theDatabase.cSway = sbcReceiveBuffer[MCB_SBC_C_SWAY_POS];
-	}
-	if(theDatabase.validity & MCB_SBC_YAW_SET_POINT_VALID) {
-		theDatabase.yawSetPoint = sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS];
-	}
-	if(theDatabase.validity & MCB_SBC_DEPTH_SET_POINT_VALID) {
-		theDatabase.depthSetPoint = sbcReceiveBuffer[MCB_SBC_DEPTH_SET_POINT_POS];
-	}
-	if(theDatabase.validity & MCB_SBC_YAW_SENSOR_DATA_VALID) {
-		theDatabase.yawSetPoint = sbcReceiveBuffer[MCB_SBC_SENSOR_DEPTH_POS];
-	}
-	if(theDatabase.validity & MCB_SBC_SURGE_VEL_SET_POINT_VALID) {
-		theDatabase.surgeVelSetPoint = sbcReceiveBuffer[MCB_SBC_SURGE_VEL_SET_POINT_POS];
-	}
-	if(theDatabase.validity & MCB_SBC_SWAY_VEL_SET_POINT_VALID) {
-		theDatabase.swayVelSetPoint = sbcReceiveBuffer[MCB_SBC_SWAY_VEL_SET_POINT_POS];
-	}
-	if(theDatabase.validity & MCB_SBC_PSB_MODE_VALID) {
-		theDatabase.psbMode = sbcReceiveBuffer[MCB_SBC_PSB_MODE_POS];
+	theDatabase.mode = sbcReceiveBuffer[MCB_SBC_MODE_POS];
+	theDatabase.validity = sbcReceiveBuffer[validity];
+	switch(theDatabase.mode) {
+		case MCB_MODE_CONTROL:
+			if (MCB_VALIDITY) {
+				theDatabase.yawSetPoint = (sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS]) | (sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS] << 8);
+			}
+			if () {
+				theDatabase.depthSetPoint = (sbcReceiveBuffer[MCB_SBC_DEPTH_SET_POINT_POS]) | (sbcReceiveBuffer[MCB_SBC_DEPTH_SET_POINT_POS] << 8);
+			}
+			if () {
+				theDatabase.surgeVelSetPoint = sbcReceiveBuffer[MCB_SBC_SURGE_VEL_SET_POINT_POS];
+			}
+			if () {
+				theDatabase.swayVelSetPoint = sbcReceiveBuffer[MCB_SBC_SWAY_VEL_SET_POINT_POS];
+			}
+			break;
+		case MCB_MODE_SET_YAW_PARAMETERS:
+			theDatabase.kpYaw = sbcReceiveBuffer[MCB_SBC_KP_YAW_POS];
+			theDatabase.kdYaw = sbcReceiveBuffer[MCB_SBC_KD_YAW_POS];
+			theDatabase.kiYaw = sbcReceiveBuffer[MCB_SBC_KI_YAW_POS];
+
+		case MCB_MODE_SET_DEPTH_PARAMETERS:
+			theDatabase.kpDepth = sbcReceiveBuffer[MCB_SBC_KP_DEPTH_POS];
+			theDatabase.kdDepth = sbcReceiveBuffer[MCB_SBC_KD_DEPTH_POS];
+			theDatabase.kiDepth = sbcReceiveBuffer[MCB_SBC_KI_DEPTH_POS];
+		case MCB_MODE_SET_SWAY_PARAMETERS:
+			theDatabase.cSurge = sbcReceiveBuffer[MCB_SBC_C_SURGE_POS];
+		case MCB_MODE_SET_SURGE_PARAMETERS:
+			theDatabase.surgeVelSetPoint = sbcReceiveBuffer[MCB_SBC_SURGE_VEL_SET_POINT_POS];
+		case MCB_MODE_SET_PSB_MODE:
+			theDatabase.psbMode = sbcReceiveBuffer[MCB_SBC_PSB_MODE_POS];
+		theDatabase.sensorYaw = (sbcReceiveBuffer[MCB_SBC_SENSOR_YAW_POS]) | (sbcReceiveBuffer[MCB_SBC_SENSOR_YAW_POS] << 8);
 	}
 
 

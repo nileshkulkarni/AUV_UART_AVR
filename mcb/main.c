@@ -4,10 +4,10 @@
 #include "database.h"
 #include "run.h"
 
-
 int main(void){
 	DDRC = 0xFF;
 	PORTC = 0xAF;
+	controllerInit();
 	uartInit();	
 	timerInit();
 	sei();
