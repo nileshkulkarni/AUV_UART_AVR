@@ -71,5 +71,12 @@ void adcStartSampling(void);
 #define REG_FREQ_TCNT TCNT1
 #define REG_FREQ_TIMER_COMPA_vect TIMER1_COMPA_vect
 
+#define REG_MOTOR_1_OCR OCR3A
+#define REG_MOTOR_2_OCR OCR3B
+#define REG_MOTOR_3_OCR OCR3C
+
+#define REG_MOTOR_4_OCR OCR4A
+#define REG_MOTOR_5_OCR OCR4B
+#define REG_MOTOR_6_OCR OCR4C
 
 #endif
