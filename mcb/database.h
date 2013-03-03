@@ -1,5 +1,5 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#ifndef MCB_DATABASE_H
+#define MCB_DATABASE_H
 
 #include <stdint.h>
 struct mcb_database {

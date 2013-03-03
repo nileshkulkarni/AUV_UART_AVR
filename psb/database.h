@@ -1,5 +1,5 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#ifndef PSB_DATABASE_H
+#define PSB_DATABASE_H
 
 #include <stdint.h>
 struct psb_database {
