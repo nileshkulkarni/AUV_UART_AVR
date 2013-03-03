@@ -7,11 +7,11 @@
 int main(void){
 	DDRC = 0xFF;
 	PORTC = 0xAF;
-	controllerInit();
+	controllerReset();
 	uartInit();	
 	timerInit();
 	sei();
-	
+	//sbcPuts("auv-iitb",8);	
 	/* entern the infinitum of communication and controlling*/
 	run();
 	return 0;

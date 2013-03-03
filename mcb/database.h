@@ -14,7 +14,7 @@ uint16_t sensorDepth;
 /*set points*/
 uint16_t depthSetPoint;
 uint16_t yawSetPoint;
-uint8_t surgeVelSetPoint
+uint8_t surgeVelSetPoint;
 uint8_t swayVelSetPoint;
 
 /*etc*/

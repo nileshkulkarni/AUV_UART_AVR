@@ -59,7 +59,7 @@ void motionControl(void) {
 
 }
 
-void controllerInit(void) {
+void controllerReset(void) {
 theCMD.yawErrorCurr = 0;
 theCMD.yawErrorPrev = 0;
 theCMD.yawErrorSum = 0;
