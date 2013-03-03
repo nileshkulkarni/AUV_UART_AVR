@@ -1,11 +1,14 @@
 #include "database.h"
 #include "hw/hw.h"
+#include "../psb/database.h"
 
 extern char sbcTransmitBuffer[MCB_SBC_BUFFER_SIZE];
 extern char sbcReceiveBuffer[MCB_SBC_BUFFER_SIZE];
+extern char psbTransmitBuffer[MCB_SBC_BUFFER_SIZE];
+extern char psbReceiveBuffer[MCB_SBC_BUFFER_SIZE];
 struct mcb_database theDatabase;
 /*
-Format of the transmit buffer is as follows:
+Format of the sbc transmit buffer is as follows:
 
 kpYaw
 kdYaw
@@ -69,6 +72,9 @@ sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = 'x';
 
 }
 
+void updatePsbTransmitBuffer (void) {
+psbTransmitBuffer[PSB_MCB_MODE_POS] = theDatabase.psbMode;
+}
 
 
 void updateSbcDatabase (void) {
@@ -108,4 +114,11 @@ theDatabase.validity = sbcReceiveBuffer[MCB_SBC_VALIDITY_POS];
 	}
 
 
+}
+
+void updatePsbDatabase (void) {
+	theDatabase.sensorDepth = psbTransmitBuffer[PSB_MCB_DEPTH_POS];	
+	theDatabase.psbAdcData = psbTransmitBuffer[PSB_MCB_ADC_DATA_POS];
+	theDatabase.psbIntercept = psbTransmitBuffer[PSB_MCB_INTERCEPT_POS];
+	theDatabase.psbSlope = psbTransmitBuffer[PSB_MCB_SLOPE_POS];	
 }

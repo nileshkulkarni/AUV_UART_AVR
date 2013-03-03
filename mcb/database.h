@@ -19,7 +19,12 @@ uint8_t surgeVelSetPoint, swayVelSetPoint;
 uint16_t pwm[6];
 uint8_t mode;
 uint16_t validity;
+
+/* psb related */
 uint8_t psbMode;
+uint8_t psbIntercept;
+uint8_t psbSlope;
+uint8_t psbAdcData;
 
 };
 
@@ -68,7 +73,9 @@ uint8_t psbMode;
 #define MCB_SBC_DEBUG_5_POS 18
 #define MCB_SBC_DEBUG_6_POS 19
 
-void updateTransmitBuffer(void);
-void updateDatabase(void);
+void updateSbcTransmitBuffer(void);
+void updateSbcDatabase(void);
+void updatePsbTransmitBuffer(void);
+void updatePsbDatabase(void);
 
 #endif
