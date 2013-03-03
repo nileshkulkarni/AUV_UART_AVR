@@ -58,4 +58,18 @@ void adcStartSampling(void);
 #define REG_PSB_UCSZ1 UCSZ11
 #define REG_PSB_USART_RX_vect USART1_RX_vect
 
+#define REG_FREQ_TCCRB TCCR1B
+#define REG_FREQ_CS0 CS10
+#define REG_FREQ_CS1 CS11
+#define REG_FREQ_CS2 CS12
+#define REG_FREQ_OCRAH OCR1AH
+#define REG_FREQ_OCRAL OCR1AL
+#define REG_FREQ_TIMSK TIMSK1
+#define REG_FREQ_TIFR TIFR1
+#define REG_FREQ_OCIEA OCIE1A
+#define REG_FREQ_OCFA OCF1A
+#define REG_FREQ_TCNT TCNT1
+#define REG_FREQ_TIMER_COMPA_vect TIMER1_COMPA_vect
+
+
 #endif
