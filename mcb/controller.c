@@ -3,7 +3,7 @@
 #include "database.h"
 #include "../common/system_config.h"
 
-extern struct database theDatabase;
+extern struct mcb_database theDatabase;
 volatile bool runController;
 
 

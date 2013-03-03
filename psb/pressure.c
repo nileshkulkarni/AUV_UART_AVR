@@ -3,7 +3,7 @@
 #include "pressure.h"
 
 volatile bool runEstimator;
-extern struct database theDatabase;
+extern struct psb_database theDatabase;
 
 void estimateDepth (void) {
 

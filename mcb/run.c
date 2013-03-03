@@ -14,7 +14,7 @@ void run(void) {
 		if (sbcReceiveBufferFull == TRUE) {
 			bool b = crc8Decrypt(sbcReceiveBuffer,MCB_SBC_BUFFER_SIZE);
 			if (b == TRUE) {
-				updateDatabase();
+				updateSbcDatabase();
 				sbcTransmitBuffer[0] = DATA_RECEIVED_TRUE;	
 			}
 			else {
@@ -22,9 +22,9 @@ void run(void) {
 			}
 			pressureSensorHandler();
 			motionControl(); // this function would modify theDatabase
-			updateTransmitBuffer(); 
+			updateSbcTransmitBuffer(); 
 			crc8Encrypt(sbcTransmitBuffer,MCB_SBC_BUFFER_SIZE);
-			put_s(sbcTransmitBuffer,MCB_SBC_BUFFER_SIZE);
+			sbcPuts(sbcTransmitBuffer,MCB_SBC_BUFFER_SIZE);
 			sbcReceiveBufferFull = FALSE;
 			sbcReceiveBufferLength = 0;
 		}
