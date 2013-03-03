@@ -12,7 +12,7 @@ uint8_t cSurge, cSway;
 uint8_t sensorYaw;
 uint16_t sensorDepth;
 /*set points*/
-uint16_t depthSetPoint
+uint16_t depthSetPoint;
 uint8_t yawSetPoint;
 uint8_t surgeVelSetPoint, swayVelSetPoint;
 
