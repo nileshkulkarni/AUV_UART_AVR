@@ -20,10 +20,14 @@ void updateDatabase(void);
 /* to be sent from PSB to MCB */
 #define PSB_MCB_DEPTH_POS 1
 #define PSB_MCB_ADC_DATA_POS 3
+
+/* to be sent in either direction */
 #define PSB_MCB_INTERCEPT_POS 5
 #define PSB_MCB_SLOPE_POS 6
 
 /* etc */
-#define PSB_CALIBRATE_INTERCEPT 0x61
+#define PSB_CALIBRATE_INTERCEPT 1
+#define PSB_SET_SLOPE_INTERCEPT 2
+
 
 #endif
