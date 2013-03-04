@@ -26,8 +26,16 @@ void updateTransmitBuffer (void) {
 void updateDatabase (void) {
 	theDatabase.adcData = adcSample();
 	theDatabase.mode = mcbReceiveBuffer[PSB_MCB_MODE_POS];
-	if (theDatabase.mode == PSB_CALIBRATE_INTERCEPT) {
+	switch(theDatabase.mode) {
+	case PSB_CALIBRATE_INTERCEPT: {
 		theDatabase.intercept = theDatabase.adcData;
+		break;
+		}
+	case PSB_SET_SLOPE_INTERCEPT: {
+		theDatabase.intercept = mcbReceiveBuffer[PSB_MCB_INTERCEPT_POS];
+		theDatabase.intercept = mcbReceiveBuffer[PSB_MCB_SLOPE_POS];
+		break;
+		}
 	}
 
 }

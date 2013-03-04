@@ -48,6 +48,8 @@ uint16_t psbAdcData;
 #define MCB_SBC_MODE_POS 17
 #define MCB_SBC_PSB_MODE_POS 18
 #define MCB_SBC_CONTROL_VALIDITY_POS 19
+#define MCB_SBC_PSB_INTERCEPT_POS 20
+#define MCB_SBC_PSB_SLOPE_POS 21
 
 /* to be sent from MCB to SBC*/
 #define MCB_SBC_SENSOR_DEPTH_POS 1

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 struct psb_database {
-uint8_t intercept;
+uint16_t intercept;
 uint8_t slope;
 uint8_t mode;
 uint16_t adcData;
@@ -23,7 +23,7 @@ void updateDatabase(void);
 
 /* to be sent in either direction */
 #define PSB_MCB_INTERCEPT_POS 5
-#define PSB_MCB_SLOPE_POS 6
+#define PSB_MCB_SLOPE_POS 8
 
 /* etc */
 #define PSB_CALIBRATE_INTERCEPT 1
