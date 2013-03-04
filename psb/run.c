@@ -14,7 +14,15 @@ void run(void) {
 
 	while(1) {
 		if (mcbReceiveBufferFull == TRUE) {
-			PORTC = 0xF0;
+			static int iii = 0;
+				if (iii == 0) {
+				PORTC = 0xF0;
+				iii = 1;
+				}
+				else {
+				PORTC = 0x00;
+				iii = 0;
+				}
 			bool b = crc8Decrypt(mcbReceiveBuffer,PSB_MCB_BUFFER_SIZE);
 			if (b == TRUE) {
 				updateDatabase();

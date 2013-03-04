@@ -40,7 +40,16 @@ void run(void) {
 
 
 		if (psbReceiveBufferFull == TRUE) {
-			PORTC = 0xF0;
+			DDRC = 0xFF;
+			static int i = 0;
+				if (i == 0) {
+				PORTC = 0xF0;
+				i = 1;
+				}
+				else {
+				PORTC = 0x00;
+				i = 0;
+				}
 			bool b = crc8Decrypt(psbReceiveBuffer,PSB_MCB_BUFFER_SIZE);
 			updatePsbDatabase();
 			if (b == TRUE) {
