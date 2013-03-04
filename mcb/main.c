@@ -11,6 +11,8 @@ int main(void){
 	uartInit();	
 	timerInit();
 	sei();
+	DDRC = 0xFF;
+	PORTC = 0xAA;
 	//sbcPuts("auv-iitb",8);	
 	/* entern the infinitum of communication and controlling*/
 	run();

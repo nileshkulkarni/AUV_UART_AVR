@@ -15,6 +15,8 @@ extern int psbReceiveBufferLength;
 
 void run(void) {
 
+	psbPuts(psbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
+
 	while(1) {
 		if (sbcReceiveBufferFull == TRUE) {
 			bool b = crc8Decrypt(sbcReceiveBuffer,MCB_SBC_BUFFER_SIZE);
@@ -36,8 +38,11 @@ void run(void) {
 			motionControl();
 		}
 
+
 		if (psbReceiveBufferFull == TRUE) {
+			PORTC = 0xF0;
 			bool b = crc8Decrypt(psbReceiveBuffer,PSB_MCB_BUFFER_SIZE);
+			updatePsbDatabase();
 			if (b == TRUE) {
 				updatePsbDatabase();
 				psbTransmitBuffer[0] = DATA_RECEIVED_TRUE;	

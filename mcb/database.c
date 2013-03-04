@@ -30,11 +30,11 @@ void updateSbcTransmitBuffer (void) {
 	sbcTransmitBuffer[MCB_SBC_M_6_PWM_POS] = theDatabase.pwm[5] >> 8;
 	sbcTransmitBuffer[MCB_SBC_M_6_PWM_POS+1] = theDatabase.pwm[5];
 
-	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = theDatabase.kpYaw;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = theDatabase.kiYaw;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.kdYaw;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = theDatabase.sensorYaw;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = theDatabase.kdDepth;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = theDatabase.psbMode;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = theDatabase.psbAdcData >> 8;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.psbAdcData;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = theDatabase.psbSlope;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = 13;
 	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = theDatabase.kiDepth;
 
 }
