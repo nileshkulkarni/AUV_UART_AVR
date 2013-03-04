@@ -30,6 +30,10 @@ void updateSbcTransmitBuffer (void) {
 	sbcTransmitBuffer[MCB_SBC_M_6_PWM_POS] = theDatabase.pwm[5] >> 8;
 	sbcTransmitBuffer[MCB_SBC_M_6_PWM_POS+1] = theDatabase.pwm[5];
 
+	sbcTransmitBuffer[MCB_SBC_PSB_INTERCEPT_POS] = theDatabase.psbInterceptCal >> 8;
+	sbcTransmitBuffer[MCB_SBC_PSB_INTERCEPT_POS+1] = theDatabase.psbInterceptCal;
+	sbcTransmitBuffer[MCB_SBC_PSB_SLOPE_POS] = theDatabase.psbSlopeCal;
+
 	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = theDatabase.cSurge;
 	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = theDatabase.cSway;
 	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.swayVelSetPoint;
@@ -41,6 +45,9 @@ void updateSbcTransmitBuffer (void) {
 
 void updatePsbTransmitBuffer (void) {
 psbTransmitBuffer[PSB_MCB_MODE_POS] = theDatabase.psbMode;
+psbTransmitBuffer[PSB_MCB_INTERCEPT_POS] = theDatabase.psbInterceptCal >> 8;
+psbTransmitBuffer[PSB_MCB_INTERCEPT_POS+1] = theDatabase.psbInterceptCal;
+psbTransmitBuffer[PSB_MCB_SLOPE_POS] = theDatabase.psbSlopeCal;
 }
 
 
@@ -99,7 +106,7 @@ void updateSbcDatabase (void) {
 void updatePsbDatabase (void) {
 	theDatabase.sensorDepth = psbReceiveBuffer[PSB_MCB_DEPTH_POS+1] + (psbReceiveBuffer[PSB_MCB_DEPTH_POS]<<8);	
 	theDatabase.psbAdcData = psbReceiveBuffer[PSB_MCB_ADC_DATA_POS+1] + (psbReceiveBuffer[PSB_MCB_ADC_DATA_POS]<<8);
-	theDatabase.psbIntercept = psbReceiveBuffer[PSB_MCB_INTERCEPT_POS];
+	theDatabase.psbIntercept = psbReceiveBuffer[PSB_MCB_INTERCEPT_POS+1] + (psbReceiveBuffer[PSB_MCB_INTERCEPT_POS]<<8);
 	theDatabase.psbSlope = psbReceiveBuffer[PSB_MCB_SLOPE_POS];	
 
 }

@@ -16,7 +16,8 @@ void updateTransmitBuffer (void) {
 	mcbTransmitBuffer[PSB_MCB_ADC_DATA_POS] = theDatabase.adcData >> 8;
 	mcbTransmitBuffer[PSB_MCB_ADC_DATA_POS+1] = theDatabase.adcData;
 
-	mcbTransmitBuffer[PSB_MCB_INTERCEPT_POS] = theDatabase.intercept;
+	mcbTransmitBuffer[PSB_MCB_INTERCEPT_POS] = theDatabase.intercept >> 8;
+	mcbTransmitBuffer[PSB_MCB_INTERCEPT_POS+1] = theDatabase.intercept;
 	mcbTransmitBuffer[PSB_MCB_SLOPE_POS] = theDatabase.slope;
 		
 
@@ -32,7 +33,7 @@ void updateDatabase (void) {
 		break;
 		}
 	case PSB_SET_SLOPE_INTERCEPT: {
-		theDatabase.intercept = mcbReceiveBuffer[PSB_MCB_INTERCEPT_POS];
+		theDatabase.intercept = mcbReceiveBuffer[PSB_MCB_INTERCEPT_POS+1] + (mcbReceiveBuffer[PSB_MCB_INTERCEPT_POS]<<8);
 		theDatabase.intercept = mcbReceiveBuffer[PSB_MCB_SLOPE_POS];
 		break;
 		}
