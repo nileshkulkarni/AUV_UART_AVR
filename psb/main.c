@@ -12,8 +12,6 @@ int main(void){
 
 	pressureInit();
 
-	DDRC = 0xFF;
-	PORTC = 0xAA;
 	sei();
 
 	run();

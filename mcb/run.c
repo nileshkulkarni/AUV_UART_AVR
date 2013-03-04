@@ -13,8 +13,11 @@ extern char psbTransmitBuffer[MCB_SBC_BUFFER_SIZE];
 extern bool psbReceiveBufferFull;
 extern int psbReceiveBufferLength;
 
+volatile bool pingPsb;
+
 void run(void) {
 
+	crc8Encrypt(psbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
 	psbPuts(psbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
 
 	while(1) {
@@ -40,30 +43,23 @@ void run(void) {
 
 
 		if (psbReceiveBufferFull == TRUE) {
-			DDRC = 0xFF;
-			static int i = 0;
-				if (i == 0) {
-				PORTC = 0xF0;
-				i = 1;
-				}
-				else {
-				PORTC = 0x00;
-				i = 0;
-				}
 			bool b = crc8Decrypt(psbReceiveBuffer,PSB_MCB_BUFFER_SIZE);
-			updatePsbDatabase();
 			if (b == TRUE) {
 				updatePsbDatabase();
 				psbTransmitBuffer[0] = DATA_RECEIVED_TRUE;	
 			}
-			else {
+			else{
 				psbTransmitBuffer[0] = DATA_RECEIVED_FALSE;
 			}
 			updatePsbTransmitBuffer(); 
 			crc8Encrypt(psbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
-			psbPuts(sbcTransmitBuffer,PSB_MCB_BUFFER_SIZE);
-			psbReceiveBufferFull = FALSE;
-			psbReceiveBufferLength = 0;
+			if(pingPsb == TRUE) {
+				TOGGLE(PORTC);
+				psbPuts(psbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
+				pingPsb = FALSE;
+				psbReceiveBufferFull = FALSE;
+				psbReceiveBufferLength = 0;
+			}
 		}
 	}
 }

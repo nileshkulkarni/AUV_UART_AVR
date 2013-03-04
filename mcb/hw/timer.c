@@ -4,18 +4,30 @@
 
 
 extern volatile bool runController;
+extern volatile bool pingPsb;
 
 void timerInit(void) {
 /* motion controller frequency */
 /* prescaler = 1024 */
-REG_FREQ_TCCRB = (1 << REG_FREQ_CS2) | (1 << REG_FREQ_CS0);
-REG_FREQ_OCRAH = (MOTION_CONTROLLER_OCR & 0xFF00) >> 8;
-REG_FREQ_OCRAL = MOTION_CONTROLLER_OCR & 0x00FF;
+REG_MC_FREQ_TCCRB = (1 << REG_MC_FREQ_CS2) | (1 << REG_MC_FREQ_CS0);
+REG_MC_FREQ_OCRAH = (MOTION_CONTROLLER_OCR & 0xFF00) >> 8;
+REG_MC_FREQ_OCRAL = MOTION_CONTROLLER_OCR & 0x00FF;
 /* enabling compare match interrupts */
-REG_FREQ_TIMSK = (1 << REG_FREQ_OCIEA);
-REG_FREQ_TIFR = (1 << REG_FREQ_OCFA);
+REG_MC_FREQ_TIMSK = (1 << REG_MC_FREQ_OCIEA);
+REG_MC_FREQ_TIFR = (1 << REG_MC_FREQ_OCFA);
 /* begin timer */
-REG_FREQ_TCNT = 0;
+REG_MC_FREQ_TCNT = 0;
+
+/* psb communication frequency */
+/* prescaler = 1024 */
+REG_PSB_COMM_FREQ_TCCRB = (1 << REG_PSB_COMM_FREQ_CS2) | (1 << REG_PSB_COMM_FREQ_CS0);
+REG_PSB_COMM_FREQ_OCRAH = (PSB_COMMUNICATION_OCR & 0xFF00) >> 8;
+REG_PSB_COMM_FREQ_OCRAL = PSB_COMMUNICATION_OCR & 0x00FF;
+/* enabling compare match interrupts */
+REG_PSB_COMM_FREQ_TIMSK = (1 << REG_PSB_COMM_FREQ_OCIEA);
+REG_PSB_COMM_FREQ_TIFR = (1 << REG_PSB_COMM_FREQ_OCFA);
+/* begin timer */
+REG_PSB_COMM_FREQ_TCNT = 0;
 
 /* pwm generation */
 DDRE = 0xFF;
@@ -32,21 +44,16 @@ REG_MOTOR_5_PWM = 512;
 REG_MOTOR_6_PWM = 512;
 }
 
-ISR (REG_FREQ_TIMER_COMPA_vect) {
+ISR (REG_MC_FREQ_TIMER_COMPA_vect) {
 /* simulating CTC mode by forcing TCNT1 = 0 */
-REG_FREQ_TCNT = 0;
+REG_MC_FREQ_TCNT = 0;
 runController = TRUE;
-/*
-DDRC = 0xFF;
-static int i = 0;
-	if (i == 0) {
-	PORTC = 0xF0;
-	i = 1;
-	}
-	else {
-	PORTC = 0x00;
-	i = 0;
-	}
-	*/
+}
+
+
+ISR (REG_PSB_COMM_FREQ_TIMER_COMPA_vect) {
+/* simulating CTC mode by forcing TCNT1 = 0 */
+REG_PSB_COMM_FREQ_TCNT = 0;
+pingPsb = TRUE;
 }
 

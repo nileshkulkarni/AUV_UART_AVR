@@ -10,6 +10,7 @@
 
 #define PSB_MCB_BAUD_UBRR ((PSB_FOSC/PSB_MCB_BAUD/8)-1)
 #define PRESSURE_SENSOR_OCR (PSB_FOSC/PRESSURE_SENSOR_FREQ/1024)
+#define TOGGLE(REG) REG=0xFF;static int abc;if(abc==0){REG=0xFF;abc=1;}else{REG=0x00;abc=0;}
 
 void uartInit(void);
 void put_c(uint8_t a);

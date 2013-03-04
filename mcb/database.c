@@ -9,8 +9,8 @@ extern char psbReceiveBuffer[MCB_SBC_BUFFER_SIZE];
 struct mcb_database theDatabase;
 
 void updateSbcTransmitBuffer (void) {
-	sbcTransmitBuffer[MCB_SBC_SENSOR_DEPTH_POS] = theDatabase.sensorDepth;
-	sbcTransmitBuffer[MCB_SBC_SENSOR_DEPTH_POS+1] = theDatabase.sensorDepth >> 8;
+	sbcTransmitBuffer[MCB_SBC_SENSOR_DEPTH_POS] = theDatabase.sensorDepth>>8;
+	sbcTransmitBuffer[MCB_SBC_SENSOR_DEPTH_POS+1] = theDatabase.sensorDepth;
 
 	sbcTransmitBuffer[MCB_SBC_M_1_PWM_POS] = theDatabase.pwm[0] >> 8;
 	sbcTransmitBuffer[MCB_SBC_M_1_PWM_POS+1] = theDatabase.pwm[0];
@@ -30,12 +30,12 @@ void updateSbcTransmitBuffer (void) {
 	sbcTransmitBuffer[MCB_SBC_M_6_PWM_POS] = theDatabase.pwm[5] >> 8;
 	sbcTransmitBuffer[MCB_SBC_M_6_PWM_POS+1] = theDatabase.pwm[5];
 
-	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = theDatabase.psbMode;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = theDatabase.psbAdcData >> 8;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.psbAdcData;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = theDatabase.psbSlope;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = 13;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = theDatabase.kiDepth;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = theDatabase.cSurge;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = theDatabase.cSway;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.swayVelSetPoint;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = theDatabase.surgeVelSetPoint;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = theDatabase.sensorDepth >> 8;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = theDatabase.sensorDepth;
 
 }
 
@@ -79,11 +79,11 @@ void updateSbcDatabase (void) {
 			break;
 			}
 		case MCB_MODE_SET_SWAY_PARAMETERS: {
-			theDatabase.cSurge = sbcReceiveBuffer[MCB_SBC_C_SURGE_POS];
+			theDatabase.cSway = sbcReceiveBuffer[MCB_SBC_C_SWAY_POS];
 			break;
 			}
 		case MCB_MODE_SET_SURGE_PARAMETERS: {
-			theDatabase.surgeVelSetPoint = sbcReceiveBuffer[MCB_SBC_SURGE_VEL_SET_POINT_POS];
+			theDatabase.cSurge = sbcReceiveBuffer[MCB_SBC_C_SURGE_POS];
 			break;
 			}
 		case MCB_MODE_SET_PSB_MODE: {
@@ -97,8 +97,9 @@ void updateSbcDatabase (void) {
 }
 
 void updatePsbDatabase (void) {
-	theDatabase.sensorDepth = psbTransmitBuffer[PSB_MCB_DEPTH_POS];	
-	theDatabase.psbAdcData = psbTransmitBuffer[PSB_MCB_ADC_DATA_POS];
-	theDatabase.psbIntercept = psbTransmitBuffer[PSB_MCB_INTERCEPT_POS];
-	theDatabase.psbSlope = psbTransmitBuffer[PSB_MCB_SLOPE_POS];	
+	theDatabase.sensorDepth = psbReceiveBuffer[PSB_MCB_DEPTH_POS+1] + (psbReceiveBuffer[PSB_MCB_DEPTH_POS]<<8);	
+	theDatabase.psbAdcData = psbReceiveBuffer[PSB_MCB_ADC_DATA_POS+1] + (psbReceiveBuffer[PSB_MCB_ADC_DATA_POS]<<8);
+	theDatabase.psbIntercept = psbReceiveBuffer[PSB_MCB_INTERCEPT_POS];
+	theDatabase.psbSlope = psbReceiveBuffer[PSB_MCB_SLOPE_POS];	
+
 }

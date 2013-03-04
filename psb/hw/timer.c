@@ -21,16 +21,5 @@ ISR (TIMER1_COMPA_vect) {
 /* simulating CTC mode by forcing TCNT1 = 0 */
 TCNT1 = 0;
 runEstimator = TRUE;
-/*
-static int i = 0;
-	if (i == 0) {
-	PORTC = 0xF0;
-	i = 1;
-	}
-	else {
-	PORTC = 0x00;
-	i = 0;
-	}
-	*/
 }
 

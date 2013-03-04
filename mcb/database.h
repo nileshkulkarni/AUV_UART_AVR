@@ -9,7 +9,7 @@ uint8_t kpYaw,kdYaw,kiYaw;
 uint8_t kpDepth,kdDepth,kiDepth;
 uint8_t cSurge, cSway;
 /*sensor readings*/
-uint16_t sensorYaw;
+int16_t sensorYaw;
 uint16_t sensorDepth;
 /*set points*/
 uint16_t depthSetPoint;
@@ -24,9 +24,9 @@ uint8_t control_validity;
 
 /* psb related */
 uint8_t psbMode;
-uint16_t psbIntercept;
 uint8_t psbSlope;
-uint8_t psbAdcData;
+uint16_t psbIntercept;
+uint16_t psbAdcData;
 
 };
 

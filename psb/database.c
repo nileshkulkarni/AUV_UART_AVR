@@ -6,7 +6,6 @@ extern char mcbReceiveBuffer[PSB_MCB_BUFFER_SIZE];
 struct psb_database theDatabase;
 /*
 Format of the transmit buffer is as follows:
-
 */
 
 void updateTransmitBuffer (void) {
@@ -17,9 +16,9 @@ void updateTransmitBuffer (void) {
 	mcbTransmitBuffer[PSB_MCB_ADC_DATA_POS] = theDatabase.adcData >> 8;
 	mcbTransmitBuffer[PSB_MCB_ADC_DATA_POS+1] = theDatabase.adcData;
 
-	//mcbTransmitBuffer[PSB_MCB_INTERCEPT_POS] = theDatabase.intercept;
-	mcbTransmitBuffer[PSB_MCB_INTERCEPT_POS] = 43;
+	mcbTransmitBuffer[PSB_MCB_INTERCEPT_POS] = theDatabase.intercept;
 	mcbTransmitBuffer[PSB_MCB_SLOPE_POS] = theDatabase.slope;
+		
 
 }
 

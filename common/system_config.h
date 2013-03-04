@@ -13,5 +13,6 @@
 
 #define MOTION_CONTROLLER_FREQ 20 // in hertz
 #define PRESSURE_SENSOR_FREQ 20 // in hertz
+#define PSB_COMMUNICATION_FREQ 10 // in hertz
 
 #endif

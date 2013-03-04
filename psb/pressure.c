@@ -8,8 +8,12 @@ extern struct psb_database theDatabase;
 void estimateDepth (void) {
 
 	if (runEstimator == TRUE) {
+		if(theDatabase.adcData < theDatabase.intercept) {
+		theDatabase.depth = 0;
+		}
+		else {
 		theDatabase.depth = (theDatabase.adcData - theDatabase.intercept)/theDatabase.slope;
-		runEstimator = FALSE;
+		}
 	}
 
 }

@@ -17,7 +17,8 @@ ADCSRA |= (1 << ADSC);
 	while(!(ADCSRA & (1 << ADIF))) {}
 ADCSRA |= (1 << ADIF);
 uint16_t adcData;
-adcData = ADCL;
-adcData = adcData | ((0x00FF & ADCH)<<8);
+uint16_t adcl = ADCL;
+uint16_t adch = ADCH;
+adcData = (adch<<8) + adcl;
 return adcData;
 }
