@@ -30,12 +30,12 @@ void updateSbcTransmitBuffer (void) {
 	sbcTransmitBuffer[MCB_SBC_M_6_PWM_POS] = theDatabase.pwm[5] >> 8;
 	sbcTransmitBuffer[MCB_SBC_M_6_PWM_POS+1] = theDatabase.pwm[5];
 
-	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = 'x';
-	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = 'x';
-	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = 'x';
-	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = 'x';
-	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = 'x';
-	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = 'x';
+	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = theDatabase.kpYaw;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = theDatabase.kiYaw;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.kdYaw;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = theDatabase.sensorYaw;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = theDatabase.kdDepth;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = theDatabase.kiDepth;
 
 }
 
@@ -52,10 +52,10 @@ void updateSbcDatabase (void) {
 		case MCB_MODE_CONTROL: {
 			controllerReset();
 			if (theDatabase.control_validity & MCB_VALID_YAW_CONTROL) {
-				theDatabase.yawSetPoint = (sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS]) | (sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS] << 8);
+				theDatabase.yawSetPoint = (sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS+1]) | (sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS] << 8);
 			}
 			if (theDatabase.control_validity & MCB_VALID_DEPTH_CONTROL) {
-				theDatabase.depthSetPoint = (sbcReceiveBuffer[MCB_SBC_DEPTH_SET_POINT_POS]) | (sbcReceiveBuffer[MCB_SBC_DEPTH_SET_POINT_POS] << 8);
+				theDatabase.depthSetPoint = (sbcReceiveBuffer[MCB_SBC_DEPTH_SET_POINT_POS+1]) | (sbcReceiveBuffer[MCB_SBC_DEPTH_SET_POINT_POS] << 8);
 			}
 			if (theDatabase.control_validity & MCB_VALID_SURGE_CONTROL) {
 				theDatabase.surgeVelSetPoint = sbcReceiveBuffer[MCB_SBC_SURGE_VEL_SET_POINT_POS];
@@ -90,8 +90,8 @@ void updateSbcDatabase (void) {
 			theDatabase.psbMode = sbcReceiveBuffer[MCB_SBC_PSB_MODE_POS];
 			break;
 			}
-		theDatabase.sensorYaw = (sbcReceiveBuffer[MCB_SBC_SENSOR_YAW_POS]) | (sbcReceiveBuffer[MCB_SBC_SENSOR_YAW_POS] << 8);
 	}
+	theDatabase.sensorYaw = (sbcReceiveBuffer[MCB_SBC_SENSOR_YAW_POS+1]) + ((0x00FF & sbcReceiveBuffer[MCB_SBC_SENSOR_YAW_POS]) << 8);
 
 
 }

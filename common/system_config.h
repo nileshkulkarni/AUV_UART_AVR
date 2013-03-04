@@ -8,7 +8,7 @@
 #define PSB_MCB_BAUD 9600
 
 /* Buffer size is inclusive of the CRC remainder and the correction byte */
-#define MCB_SBC_BUFFER_SIZE 20
+#define MCB_SBC_BUFFER_SIZE 25
 #define PSB_MCB_BUFFER_SIZE 8
 
 #define MOTION_CONTROLLER_FREQ 20 // in hertz
