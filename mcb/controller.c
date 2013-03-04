@@ -29,13 +29,13 @@ void motionControl(void) {
 		theDatabase.pwm[0] = 512 + (theDatabase.cSway)*(theDatabase.swayVelSetPoint);
 		theDatabase.pwm[0] += (theDatabase.kpYaw)*(theCMD.yawErrorCurr);
 		theDatabase.pwm[0] += (theDatabase.kdYaw)*(theCMD.yawErrorDiff);
-		theDatabase.pwm[0] += ((theDatabase.kiYaw)*(theCMD.yawErrorDiff) >> KI_DIV);
+		theDatabase.pwm[0] += ((theDatabase.kiYaw)*(theCMD.yawErrorSum) >> KI_DIV);
 		PWM_CAP(theDatabase.pwm[0]);
 
 		theDatabase.pwm[5] = 512 - (theDatabase.cSway)*(theDatabase.swayVelSetPoint);
 		theDatabase.pwm[5] -= (theDatabase.kpYaw)*(theCMD.yawErrorCurr);
 		theDatabase.pwm[5] -= (theDatabase.kdYaw)*(theCMD.yawErrorDiff);
-		theDatabase.pwm[5] -= ((theDatabase.kiYaw)*(theCMD.yawErrorDiff) >> KI_DIV);
+		theDatabase.pwm[5] -= ((theDatabase.kiYaw)*(theCMD.yawErrorSum) >> KI_DIV);
 		PWM_CAP(theDatabase.pwm[5]);
 
 		/* motors 2 and 5 control surge */
@@ -49,12 +49,12 @@ void motionControl(void) {
 
 		theDatabase.pwm[2] = 512 + (theDatabase.kpDepth)*(theCMD.depthErrorCurr);
 		theDatabase.pwm[2] += (theDatabase.kdDepth)*(theCMD.depthErrorDiff);
-		theDatabase.pwm[2] += ((theDatabase.kiDepth)*(theCMD.depthErrorDiff) >> KI_DIV);
+		theDatabase.pwm[2] += ((theDatabase.kiDepth)*(theCMD.depthErrorSum) >> KI_DIV);
 		PWM_CAP(theDatabase.pwm[2]);
 
 		theDatabase.pwm[3] = 512 + (theDatabase.kpDepth)*(theCMD.depthErrorCurr);
 		theDatabase.pwm[3] -= (theDatabase.kdDepth)*(theCMD.depthErrorDiff);
-		theDatabase.pwm[3] -= ((theDatabase.kiDepth)*(theCMD.depthErrorDiff) >> KI_DIV);
+		theDatabase.pwm[3] -= ((theDatabase.kiDepth)*(theCMD.depthErrorSum) >> KI_DIV);
 		PWM_CAP(theDatabase.pwm[3]);
 	}
 

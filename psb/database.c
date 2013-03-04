@@ -34,7 +34,7 @@ void updateDatabase (void) {
 		}
 	case PSB_SET_SLOPE_INTERCEPT: {
 		theDatabase.intercept = mcbReceiveBuffer[PSB_MCB_INTERCEPT_POS+1] + (mcbReceiveBuffer[PSB_MCB_INTERCEPT_POS]<<8);
-		theDatabase.intercept = mcbReceiveBuffer[PSB_MCB_SLOPE_POS];
+		theDatabase.slope = mcbReceiveBuffer[PSB_MCB_SLOPE_POS];
 		break;
 		}
 	}

@@ -34,12 +34,13 @@ void updateSbcTransmitBuffer (void) {
 	sbcTransmitBuffer[MCB_SBC_PSB_INTERCEPT_POS+1] = theDatabase.psbInterceptCal;
 	sbcTransmitBuffer[MCB_SBC_PSB_SLOPE_POS] = theDatabase.psbSlopeCal;
 
-	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = theDatabase.cSurge;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = theDatabase.cSway;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.swayVelSetPoint;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = theDatabase.surgeVelSetPoint;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = theDatabase.sensorDepth >> 8;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = theDatabase.sensorDepth;
+
+	sbcTransmitBuffer[MCB_SBC_DEBUG_1_POS] = theDatabase.psbIntercept >> 8;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_2_POS] = theDatabase.psbIntercept;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.psbSlope;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = theDatabase.psbInterceptCal >> 8;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = theDatabase.psbInterceptCal;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = theDatabase.psbSlopeCal;
 
 }
 
@@ -57,7 +58,6 @@ void updateSbcDatabase (void) {
 	theDatabase.control_validity = sbcReceiveBuffer[MCB_SBC_CONTROL_VALIDITY_POS];
 	switch(theDatabase.mode) {
 		case MCB_MODE_CONTROL: {
-			controllerReset();
 			if (theDatabase.control_validity & MCB_VALID_YAW_CONTROL) {
 				theDatabase.yawSetPoint = (sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS+1]) | (sbcReceiveBuffer[MCB_SBC_YAW_SET_POINT_POS] << 8);
 			}
@@ -73,6 +73,7 @@ void updateSbcDatabase (void) {
 			break;
 			}
 		case MCB_MODE_SET_YAW_PARAMETERS: {
+			controllerReset();
 			theDatabase.kpYaw = sbcReceiveBuffer[MCB_SBC_KP_YAW_POS];
 			theDatabase.kdYaw = sbcReceiveBuffer[MCB_SBC_KD_YAW_POS];
 			theDatabase.kiYaw = sbcReceiveBuffer[MCB_SBC_KI_YAW_POS];
@@ -80,21 +81,26 @@ void updateSbcDatabase (void) {
 			}
 
 		case MCB_MODE_SET_DEPTH_PARAMETERS: {
+			controllerReset();
 			theDatabase.kpDepth = sbcReceiveBuffer[MCB_SBC_KP_DEPTH_POS];
 			theDatabase.kdDepth = sbcReceiveBuffer[MCB_SBC_KD_DEPTH_POS];
 			theDatabase.kiDepth = sbcReceiveBuffer[MCB_SBC_KI_DEPTH_POS];
 			break;
 			}
 		case MCB_MODE_SET_SWAY_PARAMETERS: {
+			controllerReset();
 			theDatabase.cSway = sbcReceiveBuffer[MCB_SBC_C_SWAY_POS];
 			break;
 			}
 		case MCB_MODE_SET_SURGE_PARAMETERS: {
+			controllerReset();
 			theDatabase.cSurge = sbcReceiveBuffer[MCB_SBC_C_SURGE_POS];
 			break;
 			}
 		case MCB_MODE_SET_PSB_MODE: {
 			theDatabase.psbMode = sbcReceiveBuffer[MCB_SBC_PSB_MODE_POS];
+			theDatabase.psbInterceptCal = sbcReceiveBuffer[MCB_SBC_PSB_INTERCEPT_POS+1] + (sbcReceiveBuffer[MCB_SBC_PSB_INTERCEPT_POS] << 8);
+			theDatabase.psbSlopeCal = sbcReceiveBuffer[MCB_SBC_PSB_SLOPE_POS];
 			break;
 			}
 	}

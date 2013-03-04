@@ -15,6 +15,6 @@ struct controller_meta_data {
 void controllerInit(void);
 void motionControl();
 
-#define KI_DIV 3
+#define KI_DIV 16
 
 #endif

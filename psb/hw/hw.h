@@ -24,4 +24,14 @@ void timerInit(void);
 void adcInit(void);
 uint16_t adcSample(void);
 
+#define REG_UBRRH UBBR3H
+#define REG_UBRRL UBBR3L
+#define REG_UCSRA UCSR3A
+#define REG_UCSRB UCSR3B
+#define REG_UCSRC UCSR3C
+#define REG_U2X U2X3
+#define REG_RXCIE RXCIE3
+#define REG_RXEN RXEN3
+#define REG_TXEN TXEN3
+
 #endif
