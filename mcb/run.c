@@ -12,6 +12,7 @@ extern char psbReceiveBuffer[MCB_SBC_BUFFER_SIZE];
 extern char psbTransmitBuffer[MCB_SBC_BUFFER_SIZE];
 extern bool psbReceiveBufferFull;
 extern int psbReceiveBufferLength;
+extern struct mcb_database theDatabase;
 
 volatile bool pingPsb;
 
@@ -53,7 +54,7 @@ void run(void) {
 			}
 			updatePsbTransmitBuffer(); 
 			crc8Encrypt(psbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
-			if(pingPsb == TRUE) {
+			if((pingPsb == TRUE) && (theDatabase.psbCommOn == TRUE)) {
 				TOGGLE(PORTC);
 				psbPuts(psbTransmitBuffer,PSB_MCB_BUFFER_SIZE);
 				pingPsb = FALSE;

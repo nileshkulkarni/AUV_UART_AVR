@@ -10,6 +10,7 @@ int main(void){
 	controllerReset();
 	uartInit();	
 	timerInit();
+	initDatabase();
 	sei();
 	//sbcPuts("auv-iitb",8);	
 	/* entern the infinitum of communication and controlling*/

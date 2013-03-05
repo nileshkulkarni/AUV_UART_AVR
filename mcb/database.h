@@ -32,6 +32,7 @@ uint8_t psbMode;
 uint8_t psbSlope;
 uint16_t psbIntercept;
 uint16_t psbAdcData;
+uint8_t psbCommOn;
 
 };
 
@@ -78,6 +79,7 @@ uint16_t psbAdcData;
 #define MCB_MODE_SET_SWAY_PARAMETERS 4
 #define MCB_MODE_SET_SURGE_PARAMETERS 5
 #define MCB_MODE_SET_PSB_MODE 6
+#define MCB_MODE_STOP_COMM 7
 
 #define MCB_VALID_YAW_CONTROL 0x01
 #define MCB_VALID_DEPTH_CONTROL 0x02
@@ -90,5 +92,6 @@ void updateSbcTransmitBuffer(void);
 void updateSbcDatabase(void);
 void updatePsbTransmitBuffer(void);
 void updatePsbDatabase(void);
+void initDatabase(void);
 
 #endif

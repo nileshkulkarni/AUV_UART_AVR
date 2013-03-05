@@ -103,6 +103,9 @@ void updateSbcDatabase (void) {
 			theDatabase.psbSlopeCal = sbcReceiveBuffer[MCB_SBC_PSB_SLOPE_POS];
 			break;
 			}
+		case MCB_MODE_STOP_COMM: {
+			theDatabase.psbCommOn = FALSE;
+			}
 	}
 	theDatabase.sensorYaw = (sbcReceiveBuffer[MCB_SBC_SENSOR_YAW_POS+1]) + ((0x00FF & sbcReceiveBuffer[MCB_SBC_SENSOR_YAW_POS]) << 8);
 
@@ -115,4 +118,8 @@ void updatePsbDatabase (void) {
 	theDatabase.psbIntercept = psbReceiveBuffer[PSB_MCB_INTERCEPT_POS+1] + (psbReceiveBuffer[PSB_MCB_INTERCEPT_POS]<<8);
 	theDatabase.psbSlope = psbReceiveBuffer[PSB_MCB_SLOPE_POS];	
 
+}
+
+void initDatabase(void) {
+	theDatabase.psbCommOn = FALSE;
 }
