@@ -40,7 +40,7 @@ void updateSbcTransmitBuffer (void) {
 	sbcTransmitBuffer[MCB_SBC_DEBUG_3_POS] = theDatabase.psbSlope;
 	sbcTransmitBuffer[MCB_SBC_DEBUG_4_POS] = theDatabase.psbInterceptCal >> 8;
 	sbcTransmitBuffer[MCB_SBC_DEBUG_5_POS] = theDatabase.psbInterceptCal;
-	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = theDatabase.psbSlopeCal;
+	sbcTransmitBuffer[MCB_SBC_DEBUG_6_POS] = theDatabase.psbCommOn;
 
 }
 
@@ -54,6 +54,7 @@ psbTransmitBuffer[PSB_MCB_SLOPE_POS] = theDatabase.psbSlopeCal;
 
 void updateSbcDatabase (void) {
 
+	theDatabase.psbCommOn = TRUE;
 	theDatabase.mode = sbcReceiveBuffer[MCB_SBC_MODE_POS];
 	theDatabase.control_validity = sbcReceiveBuffer[MCB_SBC_CONTROL_VALIDITY_POS];
 	switch(theDatabase.mode) {
@@ -121,5 +122,5 @@ void updatePsbDatabase (void) {
 }
 
 void initDatabase(void) {
-	theDatabase.psbCommOn = FALSE;
+	theDatabase.psbCommOn = TRUE;
 }
